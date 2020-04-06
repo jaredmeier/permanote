@@ -1,6 +1,6 @@
 const user = {email: "test@test.com", password: "password"}
 
-export const createAccount = (user) => (
+export const createUser = (user) => (
     $.ajax({
         method: 'POST',
         url: '/api/users',
