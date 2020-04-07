@@ -34,7 +34,7 @@ class SessionForm extends React.Component {
                 <div className="session-form-container">
                     <div className="heading">
                         <img src={window.logoURL} className="session-form-logo" />
-                        <div className="logo-byline">Remember everything important.</div>
+                        <div className="logo-byline">Remember everything. EVERYTHING.</div>
                     </div>
                     <form onSubmit={this.handleSubmit} type="" className="session-form">
                         <input 
@@ -53,7 +53,7 @@ class SessionForm extends React.Component {
                             value={this.state.password} 
                         />
                         <FormErrors errors={this.props.errors} />
-                        <button type="submit" className="session-form-submit button">{this.props.buttonText}</button>
+                        <button type="submit" className="session-form-submit">{this.props.buttonText}</button>
                     </form>
                     <br />
                     <FormLink formType={this.props.formType}/>
@@ -77,6 +77,8 @@ const FormLink = ( {formType} ) => {
         <div className="session-form-switch">
             <div>{text}</div>
             {link}
+            <div>or</div>
+            <div><Link to="/demo">Try demo</Link></div>
         </div>
     )
 }

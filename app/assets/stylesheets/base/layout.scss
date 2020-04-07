@@ -5,16 +5,17 @@ input {
     color: $gray;
 }
 
-.button {
+button {
     background-color: $green;
     color: $white;
     text-align: center;
 
+    padding: 10px 30px;
     border: 1px solid $green;
     border-radius: 10px;
 }
 
-.button:hover {
+button:hover {
     background-color: $dark-green;
 }
 
