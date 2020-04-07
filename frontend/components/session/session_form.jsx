@@ -31,27 +31,33 @@ class SessionForm extends React.Component {
         // debugger
         return (
             <>
-                <form onSubmit={this.handleSubmit} type="" className="session-form">
-                    <input 
-                        type="text"
-                        placeholder="Email"
-                        className="session-form-input"
-                        onChange={this.updateForm('email')}
-                        value={this.state.email} 
-                    />
+                <div className="session-form-container">
+                    <div className="heading">
+                        <img src={window.logoURL} className="session-form-logo" />
+                        <div className="logo-byline">Remember everything important.</div>
+                    </div>
+                    <form onSubmit={this.handleSubmit} type="" className="session-form">
+                        <input 
+                            type="text"
+                            placeholder="Email"
+                            className="session-form-input"
+                            onChange={this.updateForm('email')}
+                            value={this.state.email} 
+                        />
+                        <br />
+                        <input 
+                            type="password"
+                            placeholder="Password"
+                            className="session-form-input"
+                            onChange={this.updateForm('password')}
+                            value={this.state.password} 
+                        />
+                        <FormErrors errors={this.props.errors} />
+                        <button type="submit" className="session-form-submit button">{this.props.buttonText}</button>
+                    </form>
                     <br />
-                    <input 
-                        type="password"
-                        placeholder="Password"
-                        className="session-form-input"
-                        onChange={this.updateForm('password')}
-                        value={this.state.password} 
-                    />
-                    <FormErrors errors={this.props.errors} />
-                    <button type="submit" className="session-form-submit">{this.props.buttonText}</button>
-                </form>
-                <br />
-                <FormLink formType={this.props.formType}/>
+                    <FormLink formType={this.props.formType}/>
+                </div>
             </>
         )
     }
@@ -61,15 +67,15 @@ const FormLink = ( {formType} ) => {
     let link = null;
     let text = null;
     if (formType === "Sign in") {
-        link = (<Link to="/signup" className="session-form-link">Create account</Link>);
+        link = (<Link to="/signup">Create account</Link>);
         text = "Don't have an account?";
     } else {
         text = "Already have an account?";
-        link = (<Link to="/signin" className="session-form-link">Sign in</Link>);
+        link = (<Link to="/signin">Sign in</Link>);
     }
     return (
-        <div>
-            <div className="session-form-switch-text">{text}</div>
+        <div className="session-form-switch">
+            <div>{text}</div>
             {link}
         </div>
     )

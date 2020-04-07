@@ -1,0 +1,29 @@
+input {
+    text-align: left;
+    border: 1px solid $light-gray;
+    border-radius: 10px;
+    color: $gray;
+}
+
+.button {
+    background-color: $green;
+    color: $white;
+    text-align: center;
+
+    border: 1px solid $green;
+    border-radius: 10px;
+}
+
+.button:hover {
+    background-color: $dark-green;
+}
+
+a {
+    color: $green;
+}
+
+a:hover {
+    color: $dark-green;
+}
+
+
