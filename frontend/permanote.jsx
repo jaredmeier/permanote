@@ -5,7 +5,8 @@ import configureStore from './store/store';
 import Root from './components/root';
 
 // IMPORT TESTING FUNCTIONS
-import { loginUser, createUser, logoutUser } from './actions/session_actions';
+// import { loginUser, createUser, logoutUser } from './actions/session_actions';
+import { fetchNotes, fetchNote, createNote, updateNote, deleteNote } from './actions/notes/notes_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -23,13 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // TESTING FUNCTIONS
-    window.loginUser = loginUser;
-    window.createUser = createUser;
-    window.logoutUser = logoutUser;
+    // window.loginUser = loginUser;
+    // window.createUser = createUser;
+    // window.logoutUser = logoutUser;
     window.getState = store.getState;
     window.dispatch = store.dispatch;
+    window.fetchNotes = fetchNotes;
+    window.fetchNote = fetchNote;
+    window.createNote = createNote;
+    window.updateNote = updateNote;
+    window.deleteNote = deleteNote;
     // END TESTING
-    // debugger
+
     const root = document.getElementById('root');
     ReactDOM.render(<Root store={store} />, root);
 });

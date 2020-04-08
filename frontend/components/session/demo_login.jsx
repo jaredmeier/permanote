@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import {loginUser} from '../../actions/session_actions';
+
 class DemoLogin extends React.Component {
-    componentWillMount(){
+    componentDidMount(){
         const user = {email: 'demo@demo.com', password: 'password'};
         this.props.login(user).then(() => {
             this.props.history.push('/');

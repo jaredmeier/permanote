@@ -18,7 +18,13 @@ class User < ApplicationRecord
     attr_reader :password
     after_initialize :ensure_session_token
 
-    #FIGVAPER
+    has_many :notebooks,
+        foreign_key: :author_id,
+        class_name: :Notebook
+
+    has_many :notes,
+        through: :notebooks,
+        source: :notes
 
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)

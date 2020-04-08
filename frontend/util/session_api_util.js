@@ -1,4 +1,4 @@
-const user = {email: "test@test.com", password: "password"}
+// const user = {email: "test@test.com", password: "password"}
 
 export const createUser = (user) => (
     $.ajax({
