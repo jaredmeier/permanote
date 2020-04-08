@@ -6,10 +6,12 @@ import LoginFormContainer from "./session/login_form_container";
 import SignupFormContainer from "./session/signup_form_container";
 import DemoLogin from './session/demo_login';
 import Greeting from './session/test_greeting';
+import Home from "./Home/home";
 
 
 const App = () => (
     <div>
+        <Route exact path="/" component={Home} />
         <Route exact path="/" component={Greeting} />
         <Route exact path="/demo" component={DemoLogin} />
         <AuthRoute path="/signin" component={LoginFormContainer} />

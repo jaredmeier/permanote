@@ -1,0 +1,50 @@
+.home-content-background {
+    max-width: 100vw;
+    background-color: $green;
+    background-image: image-url('background.png');
+}
+
+.home-content {
+    max-width: 1200px;
+    height: 60vh;
+    margin: 0 auto;
+    padding: 60px 40px 0;
+    
+    font-family: $sans-serif;
+    color: $white;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 2fr;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    // align-items: center;
+}
+
+// .home-content > * {
+//     border: 1px solid red;
+// }
+
+.content-header {
+    grid-column: 1 / 2;
+    line-height: 1;
+}
+
+.content-text {
+    grid-column: 1 / 2;
+}
+
+.hero-image-container {
+    padding-left: 20px;
+    grid-column: 2 / -1;
+    grid-row: 1 / span 3;
+}
+
+.content-sign-up button {
+    background-color: white;
+    color: $green;
+    border: 2px solid $white;
+    border-radius: 3px;
+    font-style: bold;
+    font-size: 1.4em;;
+}
