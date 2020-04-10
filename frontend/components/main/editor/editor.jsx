@@ -17,25 +17,30 @@ class Editor extends React.Component {
             id: null,
             title: '',
             body: '',
+            updated_at: new Date(),
             ellDropdown: "hidden",
             navAndSidebar: ""
         };
     }
 
     componentDidMount() {
-        if (this.props.match.params.noteId) {
-            this.props.fetchNote(this.props.match.params.noteId).then( () => this.getNote() );
-        } else {
-            this.getNote();
-        }
+        this.getNote();
+        // if (this.props.match.params.noteId) {
+        //     this.props.fetchNote(this.props.match.params.noteId).then( () => this.getNote() );
+        // } else {
+        //     this.getNote();
+        // }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.match.params.noteId && this.props.match.params.noteId != prevProps.match.params.noteId) {
-            this.props.fetchNote(this.props.match.params.noteId).then( () => this.getNote() );
-        } else if (this.props.defaultNote != prevProps.defaultNote) {
+        if (this.props.match.params.noteId != prevProps.match.params.noteId || this.state.id === null) {
             this.getNote();
         }
+        // if (this.props.match.params.noteId && this.props.match.params.noteId != prevProps.match.params.noteId) {
+        //     this.props.fetchNote(this.props.match.params.noteId).then( () => this.getNote() );
+        // } else if (this.props.defaultNote != prevProps.defaultNote) {
+        //     this.getNote();
+        // }
     }
 
     updateForm(field) {
@@ -52,15 +57,14 @@ class Editor extends React.Component {
     getNote() { //sets rendered note to actually selected note, or default note stored in UI state, or empty
         if (this.props.note) {
             this.setState(this.props.note);
-        } else if (this.props.defaultNote) {
-            this.setState(this.props.defaultNote);
-        } else {
+        }  else {
             this.setEmptyState();
         };
     }
 
     deleteNote() {
-        this.props.deleteNote(this.state.id).then(() => this.props.history.push('/notes'));
+        // this.props.deleteNote(this.state.id).then(() => this.props.history.push('/notes'));
+        this.props.openModal("deleteNote");
         this.toggleHidden("ellDropdown");
     }
 

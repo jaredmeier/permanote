@@ -1,14 +1,8 @@
-import { RECEIVE_NOTES } from '../actions/notes/notes_actions';
+import { combineReducers } from 'redux';
+import modalReducer from './modal_reducer';
 
-const uiReducer = (state = {}, action) => {
-    Object.freeze(state);
-    switch (action.type) {
-        case RECEIVE_NOTES:
-            // debugger
-            return Object.assign({}, { default_note: action.notes[0].id })
-        default:
-            return state;
-    }
-}
+const uiReducer = combineReducers({
+    modal: modalReducer
+});
 
 export default uiReducer;

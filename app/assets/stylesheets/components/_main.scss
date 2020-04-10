@@ -36,6 +36,7 @@
 
 .nav-new-note:hover {
     background-color: transparent;
+    transform: scale(1.1);
 }
 
 .main-nav-links {
@@ -164,7 +165,7 @@
     height: 30px;
     width: 30px;
     background-color: transparent;
-    border: 0;
+    border: 0 transparent;
     padding: 0;
     margin-right: 10px;
     box-sizing: border-box;

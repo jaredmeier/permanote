@@ -7,7 +7,20 @@ class Sidebar extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchNotes();
+        debugger
+        if (!this.props.match.params.noteId || !this.props.notes.length ) {
+            this.props.fetchNotes().then((action) =>
+                this.props.history.push(`/notes/${action.notes[0].id}`)
+            );
+        }
+    }
+
+    compnentDidUpdate(prevProps) {
+        if (this.props.match.params.noteId != prevProps.match.params.noteId) {
+            this.props.fetchNotes().then((action) =>
+                this.props.history.push(`/notes/${action.notes[0].id}`)
+            );
+        }
     }
 
     render () {
@@ -30,7 +43,7 @@ class Sidebar extends React.Component {
                 </div>
             )
         });
-
+        noteList.reverse();
         return (
             <div className="sidebar-container">
                 <div className="sidebar-header">

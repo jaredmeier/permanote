@@ -13,6 +13,7 @@ button {
     padding: 10px 30px;
     border: 1px solid $green;
     border-radius: 10px;
+    transition: all 0.3s ease 0s;
 }
 
 button:hover {
@@ -30,6 +31,10 @@ a:hover {
 h1 {
     font-size: 4em;
 }
+
+// h2 {
+
+// }
 
 
 h3 {
