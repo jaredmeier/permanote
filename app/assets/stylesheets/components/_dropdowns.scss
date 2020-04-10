@@ -1,0 +1,51 @@
+.ell-dropdown-button {
+    height: 30px;
+    width: 20px;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ell-dropdown-button:hover {
+    background-color: $light-gray;
+    border: 1px $light-gray solid;
+    border-radius: 3px;
+}
+
+.ell-dropdown {
+    position: absolute;
+    z-index: 1;
+    right: 28px;
+    width: 150px;
+    padding: 20px 0;
+    top: 47px;
+
+    border: 1px $light-gray solid;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: -2px -2px 5px $light-gray, 2px 2px 5px $light-gray, -2px 2px 5px $light-gray, 2px -2px 5px $light-gray ;
+
+    list-style: none;
+}
+
+.ell-dropdown button {
+    width: 100%;
+    background-color: transparent;
+    padding: 0 25px;
+
+    box-sizing: border-box;
+    
+    border: 1px $white solid;
+    color: $black;
+    text-align: left;
+}
+
+.ell-dropdown button:hover {
+    background-color: $light-gray;
+    border: 1px $light-gray solid;
+    border-radius: 3px;
+}

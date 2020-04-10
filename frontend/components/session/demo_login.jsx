@@ -7,7 +7,7 @@ class DemoLogin extends React.Component {
     componentDidMount(){
         const user = {email: 'demo@demo.com', password: 'password'};
         this.props.login(user).then(() => {
-            this.props.history.push('/');
+            this.props.history.push('/notes');
         }); 
     }
 

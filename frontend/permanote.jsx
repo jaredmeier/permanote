@@ -7,6 +7,7 @@ import Root from './components/root';
 // IMPORT TESTING FUNCTIONS
 // import { loginUser, createUser, logoutUser } from './actions/session_actions';
 import { fetchNotes, fetchNote, createNote, updateNote, deleteNote } from './actions/notes/notes_actions';
+import { getAllNotes } from './reducers/selectors';
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.createNote = createNote;
     window.updateNote = updateNote;
     window.deleteNote = deleteNote;
+    window.getAllNotes = getAllNotes;
     // END TESTING
 
     const root = document.getElementById('root');

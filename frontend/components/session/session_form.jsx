@@ -16,7 +16,7 @@ class SessionForm extends React.Component {
         e.preventDefault();
 
         this.props.processForm(this.state).then(() => {
-            this.props.history.push('/');
+            this.props.history.push('/notes');
             this.setState({ email: "", password: "" });
         }); 
     }
@@ -92,7 +92,3 @@ const FormErrors = ( {errors} ) => {
 }
 
 export default SessionForm;
-
-//Already have an account? Sign in
-//Don't have an account? Create account
-//A user with that email address already exists in the system.Either request a forgotten password or select another email address.

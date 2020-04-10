@@ -6,7 +6,6 @@ const notesReducer = (state = {}, action) => {
 
     switch (action.type) {
         case RECEIVE_NOTES:
-            debugger
             Object.values(action.notes).forEach( note => {
                 newState[note.id] = note
             });
