@@ -2,10 +2,14 @@ export const getAllNotes = ( { entities: {notes} } = {} ) => (
     Object.keys(notes).map(id => notes[id])
 );
 
-// export const getNotebookNotes = ( {notebookId} ) => (
+export const getAllNotebooks = ( { entities: { notebooks } } = {} ) => (
+    Object.keys(notebooks).map(id => notebooks[id])
+);
 
-// )
-
-// or should it be generic to accept a filter that is a notebook OR tag??
-
-// should there be a UI slice of state that stores just the filtered notes?
+export const getNotebookNotes = ( { entities: { notebooks, notes} }, notebookId ) => {
+    const notebookNotes = [];
+    notebooks[notebookId].note_ids.forEach(noteId => {
+        notebookNotes.push(notes[noteId])
+    });
+    return notebookNotes;
+}

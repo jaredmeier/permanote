@@ -1,0 +1,35 @@
+.notebook-index-container {
+    grid-column: 2 / -1;
+
+    display: grid;
+    grid-template-rows: 80px 45px 48px repeat(auto-fill, 48px);
+    align-items: center;
+}
+
+.notebook-index-header {
+    grid-row: 1 / 2;
+}
+
+.notebook-index-header-2 {
+    grid-row: 2 / 3;
+}
+
+.notebook-index-col-header {
+    grid-row: 3 / 4;
+}
+
+
+.notebook-index-notebooks-list {
+    grid-row-start: 4;
+    align-self: start;
+}
+
+.notebook-index-notebooks-list button {
+    padding: 0;
+    background-color: transparent;
+    height: 32px;
+    width: 32px;
+    border: 0;
+}
+
+

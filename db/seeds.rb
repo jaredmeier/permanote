@@ -14,7 +14,15 @@ sample_text_1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 
 sample_text_2 = "Camembert de normandie camembert de normandie everyone loves. Cut the cheese stinking bishop chalk and cheese cheese and biscuits cheese and biscuits cow brie cheese and biscuits. Macaroni cheese blue castello lancashire stilton manchego stinking bishop monterey jack cut the cheese. Cheesecake caerphilly cheesy feet croque monsieur cut the cheese."
 
+sample_text_3 = "This belongs in a dumpster museum. That's not a bad place to be, if you ask me."
+
+sample_text_4 = "When the tides come a knocking, put on your frock and go door to door in an attempt to beat the system."
+
 demo_user = User.create!(email: "demo@demo.com", password: "password", full_name: "Demo User")
 demo_notebook_1 = Notebook.create!(name: "My Notebook", author_id: demo_user.id)
 demo_note_1 = Note.create!(title: "My Note", body: sample_text_1, notebook_id: demo_notebook_1.id)
 demo_note_2 = Note.create!(title: "Two is Company", body: sample_text_2, notebook_id: demo_notebook_1.id)
+
+demo_notebook_2 = Notebook.create!(name: "My Other Notebook", author_id: demo_user.id);
+demo_note_3 = Note.create!(title: "This is a note", body: sample_text_3, notebook_id: demo_notebook_2.id)
+demo_note_4 = Note.create!(title: "This is also a note", body: sample_text_4, notebook_id: demo_notebook_2.id)

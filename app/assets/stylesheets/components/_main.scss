@@ -12,22 +12,25 @@
 // 
 
 .main-nav-container {
-    padding: 15px 0 0 15px;
+    padding: 15px 0 0;
 
     display: grid;
-    grid-template-rows: 100px 50px 100px 1fr;
-    align-items: center;
+    grid-template-rows: 50px 50px 50px 100px 1fr;
 
     color: $gray;
     background-color: $black;
 }
 
+.nav-profile, .nav-search {
+    padding-left: 15px;
+}
+
 .nav-new-note {
+    padding: 0 0 0 15px;
     background-color: transparent;
     border: 0;
     color: $white;
     text-align: left;
-    padding: 0;
     height: 35px;
     width: 130px;
     display: inline-flex;
@@ -41,6 +44,30 @@
 
 .main-nav-links {
     list-style: none;
+}
+
+.nav-link-button i:first-of-type {
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+.nav-link-button {
+    display: inline-flex;
+    align-items: center;
+    
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 0;
+    color: $gray;
+    text-align: left;
+}
+
+.nav-link-button:hover {
+    border: 0;
+    background-color: rgba(255, 255, 255, 0.064);
 }
 
 // SIDEBAR

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { logoutUser } from '../../../actions/session_actions';
+import { createNote } from '../../../actions/notes/notes_actions';
 import Nav from './nav';
 
 

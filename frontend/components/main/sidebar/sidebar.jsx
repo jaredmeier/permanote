@@ -1,5 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
+
+import EditorContainer from '../editor/editor_container';
 
 class Sidebar extends React.Component {
     constructor(props) {
@@ -7,7 +9,6 @@ class Sidebar extends React.Component {
     }
 
     componentDidMount() {
-        debugger
         if (!this.props.match.params.noteId || !this.props.notes.length ) {
             this.props.fetchNotes().then((action) =>
                 this.props.history.push(`/notes/${action.notes[0].id}`)
@@ -43,8 +44,11 @@ class Sidebar extends React.Component {
                 </div>
             )
         });
-        noteList.reverse();
+
+        noteList.reverse(); // sort descending by updated
+
         return (
+        <>
             <div className="sidebar-container">
                 <div className="sidebar-header">
                     <h3 className="row-1 col-1">{this.props.header}</h3>
@@ -54,6 +58,9 @@ class Sidebar extends React.Component {
                     {noteList}
                 </div>
             </div>
+            <Route exact path="/notes/" component={EditorContainer} />
+            <Route path="/notes/:noteId" component={EditorContainer} />
+        </>
         )
     }
 };

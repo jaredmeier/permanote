@@ -25,6 +25,7 @@ const App = () => (
         <Route exact path="/demo" component={DemoLogin} />
 
         <ProtectedRoute path="/notes" component={Main} />
+        <ProtectedRoute path="/notebooks" component={Main} />
     </div>
 );
 

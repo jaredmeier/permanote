@@ -25,22 +25,12 @@ class Editor extends React.Component {
 
     componentDidMount() {
         this.getNote();
-        // if (this.props.match.params.noteId) {
-        //     this.props.fetchNote(this.props.match.params.noteId).then( () => this.getNote() );
-        // } else {
-        //     this.getNote();
-        // }
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.match.params.noteId != prevProps.match.params.noteId || this.state.id === null) {
             this.getNote();
         }
-        // if (this.props.match.params.noteId && this.props.match.params.noteId != prevProps.match.params.noteId) {
-        //     this.props.fetchNote(this.props.match.params.noteId).then( () => this.getNote() );
-        // } else if (this.props.defaultNote != prevProps.defaultNote) {
-        //     this.getNote();
-        // }
     }
 
     updateForm(field) {
@@ -63,7 +53,6 @@ class Editor extends React.Component {
     }
 
     deleteNote() {
-        // this.props.deleteNote(this.state.id).then(() => this.props.history.push('/notes'));
         this.props.openModal("deleteNote");
         this.toggleHidden("ellDropdown");
     }
@@ -95,7 +84,7 @@ class Editor extends React.Component {
                         <button className="ell-dropdown-button" onClick={() => this.toggleHidden("ellDropdown")}>
                             <i className="fas fa-ellipsis-v ellipsis-icon"></i>
                         </button>
-                            <ul className={`ell-dropdown ${this.state.ellDropdown}`}>
+                            <ul className={`ell-dropdown dropdown ${this.state.ellDropdown}`}>
                                 <li><button onClick={this.deleteNote}>Delete note</button></li>
                                 <li><button>Other option</button></li>
                                 <li><button>Other option</button></li>
