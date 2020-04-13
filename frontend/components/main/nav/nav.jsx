@@ -11,6 +11,10 @@ class Nav extends React.Component {
         };
     }
 
+    componentDidMount() {
+        this.props.fetchNotebooks();
+    }
+
     handleLogout(e) {
         e.preventDefault();
         this.props.logoutUser();
@@ -18,7 +22,8 @@ class Nav extends React.Component {
 
     handleNewNote(e) {
         e.preventDefault;
-        this.props.createNewNote(1);
+        let notebookId = this.props.match.params.notebookId || Object.keys(this.props.notebooks)[0];
+        this.props.createNewNote(notebookId).then((action) => this.props.history.push(`/notebooks/${notebookId}/${action.note.id}`));
     }
 
     toggleHidden(dropdown) {

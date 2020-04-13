@@ -1,4 +1,5 @@
 import React from 'react';
+import { getDate } from '../../../util/date_parse_util';
 
 class Editor extends React.Component {
     constructor(props) {
@@ -65,11 +66,7 @@ class Editor extends React.Component {
 
     render() {
         const { title, body, updated_at } = this.state;
-        const d = new Date(updated_at);
-        const dateString = ( 
-            "".concat(d.toLocaleString('default', { month: 'short' }), " ", 
-            d.getDate(), ",", " ", d.getFullYear())
-        );
+        const dateString = getDate(updated_at);
 
         return (
             <div className="editor-container">

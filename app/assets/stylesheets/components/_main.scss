@@ -25,6 +25,10 @@
     padding-left: 15px;
 }
 
+.nav-profile {
+    position: relative;
+}
+
 .nav-new-note {
     padding: 0 0 0 15px;
     background-color: transparent;
@@ -37,9 +41,13 @@
     align-items: center;
 }
 
+.nav-new-note:hover .add-note-icon {
+    transform: scale(1.2);
+    transition: transform 0.1s linear;
+}
+
 .nav-new-note:hover {
     background-color: transparent;
-    transform: scale(1.1);
 }
 
 .main-nav-links {
@@ -104,6 +112,10 @@
 
 .sidebar-header > .col-1 {
     grid-column: 1 / 2;
+}
+
+.sidebar-header h3 {
+    grid-column: 1 / -1;
 }
 
 .sidebar-header > .col-2 {

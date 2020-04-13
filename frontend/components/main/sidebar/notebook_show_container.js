@@ -1,21 +1,17 @@
 import { connect } from 'react-redux';
-import { getAllNotes } from '../../../reducers/selectors';
+import { getNotebookNotes } from '../../../reducers/selectors';
 import { fetchNotes } from '../../../actions/notes/notes_actions';
-import Sidebar from './sidebar';
+import { fetchNotebook } from '../../../actions/notebooks/notebook_actions';
+import NotebookShow from './notebook_show';
 
-// const mapStateToProps = state => ({
-//     notebooks: getAllNotes(state),
-//     header: "All Notes"
-// });
+const mapStateToProps = (state, ownProps) => ({
+    notes: getNotebookNotes(state, ownProps.match.params.notebookId),
+    notebook: state.entities.notebooks[ownProps.match.params.notebookId]
+});
 
-// const mapDispatchToProps = dispatch => ({
-//     fetchNotes: () => dispatch(fetchNotes())
-// });
+const mapDispatchToProps = dispatch => ({
+    fetchNotes: () => dispatch(fetchNotes()),
+    fetchNotebook: (notebookId) => dispatch(fetchNotebook(notebookId))
+});
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
-
-// TO-DO
-// write a selector to getAllNotebookNotes using the note_ids array on the notebook selected in params
-// map both the notebook and the note
-// map fetchNotebook and fetchNotebook on componentDidMount and didUpdate if the params change
-// this should then map the state as well using the selector described above
+export default connect(mapStateToProps, mapDispatchToProps)(NotebookShow);

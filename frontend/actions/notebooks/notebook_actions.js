@@ -10,9 +10,10 @@ export const receiveNotebooks = (notebooks) => ({
     notebooks
 });
 
-export const receiveNotebook = (notebook) => ({
+export const receiveNotebook = (notebook, notes) => ({
     type: RECEIVE_NOTEBOOK,
-    notebook
+    notebook,
+    notes
 });
 
 export const removeNotebook = (notebookId) => ({
@@ -31,12 +32,12 @@ export const fetchNotebooks = () => dispatch => (
 );
 
 export const fetchNotebook = (notebookId) => dispatch => (
-    NotebookAPI.fetchNotebook(notebookId).then((notebook) => dispatch(receiveNote(notebook)),
+    NotebookAPI.fetchNotebook(notebookId).then( ({notebook, notes}) => dispatch(receiveNotebook(notebook, notes)),
         errors => dispatch(receiveNotebookErrors(errors.responseJSON)))
 );
 
 export const createNotebook = (notebook) => dispatch => (
-    NotebookAPI.createNotebook(notebook).then((notebook) => dispatch(receiveNote(notebook)),
+    NotebookAPI.createNotebook(notebook).then((notebook) => dispatch(receiveNotebook(notebook)),
         errors => dispatch(receiveNotebookErrors(errors.responseJSON)))
 );
 

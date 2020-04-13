@@ -6,6 +6,7 @@ class Api::NotebooksController < ApplicationController
 
     def show
         @notebook = find_notebook
+        @notes = @notebook.notes
         if @notebook
             render :show
         else

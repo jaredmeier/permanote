@@ -2,8 +2,11 @@
     grid-column: 2 / -1;
 
     display: grid;
-    grid-template-rows: 80px 45px 48px repeat(auto-fill, 48px);
+    grid-template-rows: 80px 45px 48px 1fr;
+    grid-template-columns: minmax(190px, 2fr) repeat(2, minmax(80px, 185px)) 1fr; 
     align-items: center;
+
+    padding: 10px 35px;
 }
 
 .notebook-index-header {
@@ -14,14 +17,62 @@
     grid-row: 2 / 3;
 }
 
-.notebook-index-col-header {
-    grid-row: 3 / 4;
+.new-notebook {
+    grid-column-end: -1;
+    justify-self: end;
 }
 
+.new-notebook-button {
+    color: $green;
+    padding: 0;
+    background-color: transparent;
+    height: 32px;
+    border: 0;
+}
+
+.new-notebook-button:hover {
+    background-color: transparent;
+    border: 0;
+}
+
+.notebook-index-col-header {
+    grid-row: 3 / 4;
+    border-bottom: 1px solid $light-gray;
+    border-top: 2px solid $black;
+    padding: 8px 0;
+}
+
+.col-actions {
+    width: 100%;
+    text-align: right;
+}
 
 .notebook-index-notebooks-list {
     grid-row-start: 4;
+    grid-column: 1 / -1;
     align-self: start;
+
+    display: block;
+    align-content: center;
+
+    list-style: none;
+}
+
+.notebook-index-notebooks-list a {
+    color: $black;
+}
+
+.notebook-index-notebooks-list > li {
+    line-height: 48px;
+}
+
+.notebook-item-text {
+    display: grid;
+    grid-template-columns: minmax(190px, 2fr) repeat(2, minmax(80px, 185px)) 1fr; 
+}
+
+.notebook-item-text div:last-of-type {
+    text-align: right;
 }
 
 .notebook-index-notebooks-list button {
@@ -31,5 +82,38 @@
     width: 32px;
     border: 0;
 }
+
+.notebook-index-notes-list-container {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+
+.notebook-index-note-list {
+    width: 100%;
+    list-style: none;
+}
+
+.notebook-index-note-list .nav-icon {
+    padding-right: 10px;
+}
+
+.notebook-index-note-list li {
+    line-height: 48px;;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(190px, 2fr) repeat(2, minmax(80px, 185px)) 1fr; 
+    align-items: center;
+}
+
+.notebook-index-note-list li div:last-of-type {
+    text-align: right;
+}
+
+.notebook-index-note-list li div:first-of-type {
+    padding-left: 30px;
+}
+
 
 

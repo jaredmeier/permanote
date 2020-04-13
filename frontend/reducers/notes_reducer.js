@@ -1,4 +1,5 @@
 import { RECEIVE_NOTES, RECEIVE_NOTE, REMOVE_NOTE } from '../actions/notes/notes_actions';
+import { RECEIVE_NOTEBOOK } from '../actions/notebooks/notebook_actions';
 
 const notesReducer = (state = {}, action) => {
     Object.freeze(state);
@@ -6,6 +7,7 @@ const notesReducer = (state = {}, action) => {
 
     switch (action.type) {
         case RECEIVE_NOTES:
+        case RECEIVE_NOTEBOOK:
             Object.values(action.notes).forEach( note => {
                 newState[note.id] = note
             });

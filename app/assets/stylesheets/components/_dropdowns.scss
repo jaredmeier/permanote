@@ -58,12 +58,13 @@ $dropdown-blur: 2px;
 }
 
 //account dropdown
-
 .account-dropdown {
-    top: 90px;
+    top: 40px;
+    width: 100%;
 }
 
 .account-dropdown-button {
+    position: relative;
     background-color: transparent;
     border: 0;
     color: $gray;
