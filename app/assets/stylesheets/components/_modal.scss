@@ -152,4 +152,41 @@
     border: 1px solid $light-gray;
     border-radius: 4px;
     font-size: 1.3em;
+    color: $black;
+}
+
+
+.rename-notebook-modal {
+    width: 500px;
+    height: 265px;
+    display: grid;
+    grid-template-rows: 1fr 2fr 80px;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    background-color: $white;
+    padding: 10px 25px 0;
+    border: 1px solid $gray;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.rename-notebook-modal input {
+    padding-left: 15px;
+    width: 450px;
+    height: 40px;
+    border: 1px solid $light-gray;
+    border-radius: 4px;
+    font-size: 1.3em;
+    color: $black;
+}
+
+.rename-notebook-modal form {
+    align-self: start;
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+    color: $gray;
+}
+
+.rename-notebook-modal form h4 {
+    padding-bottom: 5px;
 }

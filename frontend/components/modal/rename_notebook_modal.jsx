@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createNotebook } from '../../actions/notebooks/notebook_actions';
+import { updateNotebook } from '../../actions/notebooks/notebook_actions';
 import { closeModal } from '../../actions/modal_actions';
 
 class RenameNotebookModal extends React.Component {
@@ -8,22 +8,31 @@ class RenameNotebookModal extends React.Component {
         super(props);
         this.state = {
             name: "",
+            id: null,
             buttonStatus: "disabled-button"
         }
         this.createNotebook = this.updateNotebook.bind(this);
     }
 
+    componentDidMount() {
+        this.setState({
+            name: this.props.notebook.name,
+            id: this.props.notebook.id,
+        })
+    }
+
     updateNotebook(e) {
         e.preventDefault();
+        const {name, id} = this.state;
         if (this.state.buttonStatus === "") {
-            this.props.updateNotebook(this.state).then(() => this.props.closeModal());
+            this.props.updateNotebook({name, id}).then(() => this.props.closeModal());
         }
     }
 
     updateForm(field) {
         return (e) => {
             this.setState({ [field]: e.target.value }, () => {
-                if (this.state.name.length > 0) {
+                if (this.state.name.length > 0 && this.state.name !== this.props.notebook.name) {
                     this.setState({ buttonStatus: "" })
                 } else this.setState({ buttonStatus: "disabled-button" })
             })
@@ -58,13 +67,12 @@ class RenameNotebookModal extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        // get the "actionId" from state to access the correct notebookId, use when updating
-        // currentUser: state.session.id
+        notebook: state.entities.notebooks[state.ui.modal.actionId]
     }
 };
 
 const mapDispatchToProps = dispatch => ({
-    updateNotebook: (notebook) => dispatch(createNotebook(notebook)),
+    updateNotebook: (notebook) => dispatch(updateNotebook(notebook)),
     closeModal: () => dispatch(closeModal())
 });
 

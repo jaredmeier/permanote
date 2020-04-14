@@ -54,7 +54,8 @@ class Editor extends React.Component {
     }
 
     deleteNote() {
-        this.props.openModal("deleteNote");
+        debugger
+        this.props.openModal("deleteNote", this.state.id);
         this.toggleHidden("ellDropdown");
     }
 
@@ -75,7 +76,8 @@ class Editor extends React.Component {
                         <button className="expand-button" onClick={() => this.toggleHidden("navAndSidebar")}>
                             <i className="fas fa-expand-alt"></i>
                         </button>
-                        <h5>Notebook name</h5>
+                        <i className="fas fa-book-open nav-icon"></i>
+                        <h5>{this.props.notebook.name}</h5>
                     </div>
                     <div className="col-2 row-1">
                         <button className="ell-dropdown-button" onClick={() => this.toggleHidden("ellDropdown")}>

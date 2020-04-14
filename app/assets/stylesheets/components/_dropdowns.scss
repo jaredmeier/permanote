@@ -9,12 +9,12 @@ $dropdown-blur: 2px;
     border-radius: 3px;
     background-color: white;
     box-shadow: -2px -2px $dropdown-blur $other-gray, 2px 2px $dropdown-blur $other-gray, -2px 2px $dropdown-blur $other-gray, 2px -2px $dropdown-blur $other-gray ;
-
+    width: 155px;
     list-style: none;
 }
 
 .dropdown button {
-    width: 100%;
+    width: 155px;
     background-color: transparent;
     padding: 0 5px 0 20px;
 
@@ -53,7 +53,7 @@ $dropdown-blur: 2px;
 
 .ell-dropdown {
     right: 28px;
-    width: 150px;
+    width: 155px;
     top: 47px;
 }
 
@@ -71,7 +71,7 @@ $dropdown-blur: 2px;
     text-align: left;
     padding: 0;
     height: 35px;
-    // width: 130px;
+    // width: 100%;
     display: inline-flex;
     align-items: center;
 }
@@ -79,6 +79,10 @@ $dropdown-blur: 2px;
 .account-dropdown-button:hover {
     background-color: transparent;
     color: $light-gray;
+}
+
+.account-dropdown button {
+    width: 100%;
 }
 
 
@@ -112,7 +116,6 @@ $dropdown-blur: 2px;
 .actions-dropdown {
     right: 0;
     top: 43px;
-    width: 155px;
 }
 
 .actions-dropdown > li {

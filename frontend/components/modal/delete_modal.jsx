@@ -37,9 +37,9 @@ class DeleteModal extends React.Component {
     }
 }
 
-function mapStateToProps (state, ownProps) {
+function mapStateToProps (state) {
     return {
-        note: state.entities.notes[ownProps.match.params.noteId]
+        note: state.entities.notes[state.ui.modal.actionId]
     }
 };
 

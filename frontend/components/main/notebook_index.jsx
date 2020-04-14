@@ -12,7 +12,8 @@ class NotebookIndex extends React.Component {
         super(props);
         this.state = {
             notebookExpand: {},
-            notebookActionsDropdown: {}
+            notebookActionsDropdown: {},
+            noteActionsDropdown: {}
         };
     }
 
@@ -31,6 +32,7 @@ class NotebookIndex extends React.Component {
             notebookNotes.map(note => {
                 if (!note) return null;
                 const date = getDateRelative(note.updated_at);
+                const noteActionsDropdown = this.state.noteActionsDropdown[note.id];
                 return (
                     <li key={note.id}>
                         <div>
@@ -41,7 +43,22 @@ class NotebookIndex extends React.Component {
                         </div>
                         <div></div>
                         <div>{date}</div>
-                        <div>Actions</div>
+                        <div className="dropdown-anchor">
+                            <button onClick={() => this.toggleNoteActionsDropdown(note.id)}
+                                className="actions-dropdown-button">
+                                <i className="fas fa-ellipsis-h"></i>
+                            </button>
+                            <ul className={`actions-dropdown dropdown 
+                            ${noteActionsDropdown ? "" : "hidden"}`}>
+                                <li><button onClick={() => {
+                                    this.props.openModal("deleteNote", note.id);
+                                    this.toggleNoteActionsDropdown(note.id)
+                                }}>
+                                    Delete note
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 )
         }));
@@ -58,6 +75,12 @@ class NotebookIndex extends React.Component {
             this.setState({ notebookActionsDropdown: Object.assign({}, this.state.notebookActionsDropdown, { [notebookId]: false }) }) :
             this.setState({ notebookActionsDropdown: Object.assign({}, { [notebookId]: true }) })
     };
+
+    toggleNoteActionsDropdown(noteId) {
+        this.state.noteActionsDropdown[noteId] === true ?
+            this.setState({ noteActionsDropdown: Object.assign({}, this.state.noteActionsDropdown, { [noteId]: false }) }) :
+            this.setState({ noteActionsDropdown: Object.assign({}, { [noteId]: true }) })
+    }
 
     render () {
         const { notebooks } = this.props;
@@ -85,7 +108,10 @@ class NotebookIndex extends React.Component {
                         </button>
                         <ul className={`actions-dropdown dropdown 
                             ${notebookActionsDropdown ? "" : "hidden"}`}>
-                            <li><button onClick={() => this.props.openModal("renameNotebook")}>Rename notebook</button></li>
+                                <li><button onClick={() => {
+                                    this.props.openModal("renameNotebook", notebook.id);
+                                    this.toggleNotebookActionsDropdown(notebook.id)
+                                    }}>Rename notebook</button></li>
                                 <li><button onClick={() => {
                                     this.props.openModal("deleteNotebook", notebook.id);
                                     this.toggleNotebookActionsDropdown(notebook.id)
