@@ -16,7 +16,7 @@ $dropdown-blur: 2px;
 .dropdown button {
     width: 100%;
     background-color: transparent;
-    padding: 0 25px;
+    padding: 0 5px 0 20px;
 
     box-sizing: border-box;
     
@@ -79,4 +79,42 @@ $dropdown-blur: 2px;
 .account-dropdown-button:hover {
     background-color: transparent;
     color: $light-gray;
+}
+
+
+
+// actions dropdown
+
+.dropdown-anchor {
+    position: relative;
+}
+
+.actions-dropdown-button {
+    height: 30px;
+    width: 20px;
+    background-color: transparent;
+    border: 0 transparent;
+    border-radius: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $gray;
+}
+
+.actions-dropdown-button:hover {
+    background-color: $light-gray;
+    border: 1px $light-gray solid;
+    border-radius: 3px;
+}
+
+.actions-dropdown {
+    right: 0;
+    top: 43px;
+    width: 155px;
+}
+
+.actions-dropdown > li {
+    line-height: initial;
 }

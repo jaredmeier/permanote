@@ -5,25 +5,31 @@ import { getAllNotebooks, getNotebookNotes } from '../../reducers/selectors';
 import { fetchNotes } from '../../actions/notes/notes_actions';
 import { fetchNotebooks } from '../../actions/notebooks/notebook_actions';
 import { getDate, getDateRelative } from '../../util/date_parse_util';
+import { openModal } from '../../actions/modal_actions';
 
 class NotebookIndex extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            notebookExpand: {}
-        }
+            notebookExpand: {},
+            notebookActionsDropdown: {}
+        };
     }
 
     componentDidMount () {
-        this.props.fetchNotes().then( () => this.props.fetchNotebooks() );
+        this.props.fetchNotebooks().then(() => this.props.fetchNotes() );
     }
 
     getNotes(notebook) {
         const { notes } = this.props;
-        if (!notebook.note_ids.length || !notes) return null;
-        debugger
+        if (!notebook.note_ids.length || !notes[notebook.id]) return null;
+        const notebookNotes = notes[notebook.id];
+        notebookNotes.sort(function (a, b) {
+            return new Date(b.updated_at) - new Date(a.updated_at);
+        });
         return (
-            notes[notebook.id].map(note => {
+            notebookNotes.map(note => {
+                if (!note) return null;
                 const date = getDateRelative(note.updated_at);
                 return (
                     <li key={note.id}>
@@ -47,17 +53,24 @@ class NotebookIndex extends React.Component {
             this.setState({ notebookExpand: Object.assign({}, this.state.notebookExpand, { [notebookId]: true }) })
     };
 
+    toggleNotebookActionsDropdown(notebookId) {
+        this.state.notebookActionsDropdown[notebookId] === true ?
+            this.setState({ notebookActionsDropdown: Object.assign({}, this.state.notebookActionsDropdown, { [notebookId]: false }) }) :
+            this.setState({ notebookActionsDropdown: Object.assign({}, { [notebookId]: true }) })
+    };
+
     render () {
         const { notebooks } = this.props;
         const notebookList = notebooks.map(notebook => {
             const notesList = this.getNotes(notebook);
             const notebookExpand = this.state.notebookExpand[notebook.id];
+            const notebookActionsDropdown = this.state.notebookActionsDropdown[notebook.id];
             const date = getDateRelative(notebook.updated_at);
             return (
             <li key={notebook.id}>
                 <div className="notebook-item-text">
                     <div>
-                        <button onClick={() => this.toggleDropdown(notebook.id)}>
+                        <button onClick={() => this.toggleDropdown(notebook.id)} className="caret-dropdown-button">
                             <i className={`fas fa-caret-right nav-icon 
                             ${notebookExpand ? "open" : ""}`}></i>
                         </button> 
@@ -65,7 +78,23 @@ class NotebookIndex extends React.Component {
                     </div>
                     <div></div>
                     <div>{date}</div>
-                    <div>Actions</div>
+                    <div className="dropdown-anchor">
+                        <button onClick={() => this.toggleNotebookActionsDropdown(notebook.id)} 
+                        className="actions-dropdown-button">
+                            <i className="fas fa-ellipsis-h"></i>
+                        </button>
+                        <ul className={`actions-dropdown dropdown 
+                            ${notebookActionsDropdown ? "" : "hidden"}`}>
+                            <li><button onClick={() => this.props.openModal("renameNotebook")}>Rename notebook</button></li>
+                                <li><button onClick={() => {
+                                    this.props.openModal("deleteNotebook", notebook.id);
+                                    this.toggleNotebookActionsDropdown(notebook.id)
+                                    }}>
+                                Delete notebook
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <ul className={`notebook-index-note-list 
                 ${notebookExpand ? "" : "hidden"}`}>
@@ -76,13 +105,14 @@ class NotebookIndex extends React.Component {
             </li>
             )
         });
-        // debugger
         return (
             <div className="notebook-index-container">
                 <div className="notebook-index-header"><h3>Notebooks</h3></div>
                 <div className="notebook-index-header-2"><h4>My notebook list</h4></div>
                 <div className="notebook-index-header-2 new-notebook">
-                    <Link to="/"><button className="new-notebook-button">New Notebook</button></Link>
+                    <button className="new-notebook-button" onClick={() => this.props.openModal("newNotebook")}>
+                        New Notebook
+                    </button>
                 </div>
                 <div className="notebook-index-col-header col-title"><h5>TITLE</h5></div>
                 <div className="notebook-index-col-header col-author"><h5></h5></div>
@@ -101,16 +131,16 @@ const mapStateToProps = state => {
     notebooks.forEach(notebook => {
         notes[notebook.id] = getNotebookNotes(state, notebook.id);
     });
-
     return {
     notebooks: notebooks,
-    notes: notes
+    notes: notes,
     }
 };
 
 const mapDispatchToProps = dispatch => ({
     fetchNotes: () => dispatch(fetchNotes()),
-    fetchNotebooks: () => dispatch(fetchNotebooks())
+    fetchNotebooks: () => dispatch(fetchNotebooks()),
+    openModal: (modal, actionId) => dispatch(openModal(modal, actionId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotebookIndex);

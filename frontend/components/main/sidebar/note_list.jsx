@@ -10,13 +10,19 @@ class NoteList extends React.Component {
     render () {
         if (!this.props.notes.length) return null;
         const { notes, view, notebook } = this.props;
+        notes.sort(function (a, b) {
+            return new Date(b.updated_at) - new Date(a.updated_at);
+        });
+
         let noteUrl = "";
         if (view === "notebook") {
             noteUrl = `/notebooks/${notebook.id}/`;
         } else {
             noteUrl = "/notes/";
         }
+
         const noteList = notes.map(note => {
+            if (!note) return null;
             let date = getDateRelative(note.updated_at);
             let body = note.body.slice(0, 70);
             return (
@@ -33,7 +39,7 @@ class NoteList extends React.Component {
                 </div>
             )
         });
-        // debugger
+
         return noteList;
     }
 }

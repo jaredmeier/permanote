@@ -12,6 +12,7 @@ class Nav extends React.Component {
     }
 
     componentDidMount() {
+        console.log("Nav fetching notebooks")
         this.props.fetchNotebooks();
     }
 

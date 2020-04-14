@@ -7,11 +7,11 @@ export const getAllNotebooks = ( { entities: { notebooks } } = {} ) => (
 );
 
 export const getNotebookNotes = ( { entities: { notebooks, notes} }, notebookId ) => {
-    // debugger
-    if (!notebookId || Object.keys(notebooks).length === 0) return null;
+    if (!notebookId || Object.keys(notebooks).length === 0 || Object.keys(notes).length === 0) return [];
     const notebookNotes = [];
     notebooks[notebookId].note_ids.forEach(noteId => {
         notebookNotes.push(notes[noteId])
     });
+
     return notebookNotes;
 }

@@ -8,10 +8,7 @@
     z-index: 10;
 }
 
-
 .modal-child {
-    width: 500px;
-    height: 200px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -19,8 +16,8 @@
 }
 
 .delete-modal {
-    height: 100%;
-    width: 100%;
+    width: 500px;
+    height: 200px;
     display: grid;
     grid-template-rows: 1fr 1fr 80px;
     grid-template-columns: 1fr 1fr;
@@ -30,11 +27,6 @@
     border: 1px solid $gray;
     border-radius: 3px;
     box-sizing: border-box;
-}
-
-.delete-modal h2 {
-    grid-row: 1 / 2;
-    grid-column: 1 / 2;
 }
 
 .close-modal {
@@ -61,42 +53,103 @@
     grid-column: 1 / -1;
 }
 
-.delete-modal .delete-modal-actions {
-    grid-row: 3 / -1;
+.modal-actions {
+    grid-row: -2 / -1;
     grid-column: -1 / 2;
     justify-self: end;
 }
 
-.delete-modal-actions button {
-    width: 70px;
+.modal-actions button {
     height: 35px;
     border-radius: 3px;
-    margin: 0 10px;
-    padding: 0;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
-.delete-modal-actions button:first-of-type {
+.modal-actions button:first-of-type {
     //cancel
     border: 1px solid $light-gray;
     background-color: transparent;
     color: $gray;
+    margin: 0 10px;
 }
 
-.delete-modal-actions button:first-of-type:hover {
+.modal-actions button:first-of-type:hover {
     //cancel
     border: 1px solid $gray;
     background-color: transparent;
     color: $gray;
 }
 
-.delete-modal-actions button:last-of-type {
+.delete-modal .modal-actions button:last-of-type {
     //delete
     border: 1px solid $red;
     background-color: $red;
     color: $white;
 }
 
-.delete-modal-actions button:last-of-type:hover {
+.delete-modal .modal-actions button:last-of-type:hover {
     background-color: #b53c31;
 }
 
+// new notebook modal
+
+.new-notebook-modal {
+    width: 550px;
+    height: 320px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 2fr 80px;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    background-color: $white;
+    padding: 10px 25px 0;
+    border: 1px solid $gray;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.new-notebook-modal .modal-actions button:last-of-type {
+    //continue
+    border: 1px solid $green;
+    background-color: $green;
+    color: $white;
+}
+
+.new-notebook-modal .modal-actions button:last-of-type:hover {
+    background-color: darkgreen;
+}
+
+#disabled-button {
+    background-color: $light-gray;
+    border: 1px solid $light-gray;
+}
+
+#disabled-button:hover {
+    cursor: default;
+}
+
+.new-notebook-modal p {
+    align-self: start;
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+}
+
+.new-notebook-modal form {
+    align-self: start;
+    grid-row: 3 / 4;
+    grid-column: 1 / -1;
+    color: $gray;
+}
+
+.new-notebook-modal form h4 {
+    padding-bottom: 5px;
+}
+
+.new-notebook-modal input {
+    padding-left: 15px;
+    width: 500px;
+    height: 40px;
+    border: 1px solid $light-gray;
+    border-radius: 4px;
+    font-size: 1.3em;
+}

@@ -6,7 +6,7 @@ class Api::NotebooksController < ApplicationController
 
     def show
         @notebook = find_notebook
-        @notes = @notebook.notes
+        @notes = @notebook.notes.order(updated_at: :desc)
         if @notebook
             render :show
         else
@@ -38,7 +38,7 @@ class Api::NotebooksController < ApplicationController
         @notebook = find_notebook
         if @notebook
             @notebook.destroy
-            render :show
+            render json: @notebook.id
         else
             render json: ["Notebook does not exist"], status: 400
         end

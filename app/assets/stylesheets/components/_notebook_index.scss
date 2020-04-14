@@ -7,6 +7,7 @@
     align-items: center;
 
     padding: 10px 35px;
+    overflow: auto;
 }
 
 .notebook-index-header {
@@ -75,12 +76,17 @@
     text-align: right;
 }
 
-.notebook-index-notebooks-list button {
+.caret-dropdown-button {
     padding: 0;
     background-color: transparent;
     height: 32px;
     width: 32px;
     border: 0;
+}
+
+.caret-dropdown-button:hover {
+    background-color: transparent;
+    
 }
 
 .notebook-index-notes-list-container {

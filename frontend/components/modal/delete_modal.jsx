@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { deleteNote } from '../../../actions/notes/notes_actions';
-import { closeModal } from '../../../actions/modal_actions';
+import { deleteNote } from '../../actions/notes/notes_actions';
+import { closeModal } from '../../actions/modal_actions';
 
 class DeleteModal extends React.Component {
     constructor (props) {
@@ -12,8 +11,11 @@ class DeleteModal extends React.Component {
 
     deleteNote () {
         const { note, deleteNote } = this.props;
+        const that = this;
         deleteNote(note.id).
-            then( () => this.props.closeModal() ).then( () => this.props.history.push('/notes') );
+            then( () => this.props.closeModal() ).then( () => {
+                that.props.match.params.notebookId ? that.props.history.push(`/notebooks/${that.props.match.params.notebookId}`) : that.props.history.push('/notes')
+            });
     }
 
     render () {
@@ -26,7 +28,7 @@ class DeleteModal extends React.Component {
                     <i className="fas fa-times"></i>
                 </button>
                 <p>The note "{note.title}" will be moved to trash.</p>
-                <div className="delete-modal-actions">
+                <div className="modal-actions">
                     <button onClick={this.props.closeModal}>Cancel</button>
                     <button onClick={this.deleteNote}>Delete</button>
                 </div>
