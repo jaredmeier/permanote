@@ -52,8 +52,6 @@
 
 .main-nav-links {
     list-style: none;
-    display: grid;
-    grid-template-rows: repeat(auto-fill, 35px);
     align-items: center;
 }
 
@@ -77,6 +75,18 @@
     align-items: center;
 }
 
+.nav-notebook-list {
+    grid-column: 2 / -1;
+    padding-left: 25px;
+    list-style: none;
+    font-size: 0.8em;
+    color: $light-gray;
+}
+
+.nav-notebook-list a, .nav-notebook-list a:hover {
+    color: $light-gray;
+}
+
 .nav-link {
     color: $light-gray;
     height: 35px;
@@ -89,15 +99,10 @@
     color: $light-gray;
 }
 
-.nav-link-container:hover, .main-nav-links li:hover {
+.nav-link-button:hover, .nav-link:hover {
     border: 0;
     background-color: rgba(255, 255, 255, 0.064);
 }
-
-// .nav-link-button:hover {
-//     border: 0;
-//     background-color: rgba(255, 255, 255, 0.064);
-// }
 
 // SIDEBAR
 // 

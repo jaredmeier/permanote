@@ -7,7 +7,8 @@ class Nav extends React.Component {
         this.handleLogout = this.handleLogout.bind(this);
         this.handleNewNote = this.handleNewNote.bind(this);
         this.state = {
-            accountDropdown: "hidden"
+            accountDropdown: "hidden",
+            notebookDropdown: "hidden"
         };
     }
 
@@ -33,7 +34,13 @@ class Nav extends React.Component {
     }
 
     render() {
-        const { currentUser } = this.props;
+        const { currentUser, notebooks } = this.props;
+        const { notebookDropdown, accountDropdown } = this.state;
+        const notebookList = notebooks.map( notebook => {
+            return (
+                <li key={notebook.id}><Link to={`/notebooks/${notebook.id}`}>{notebook.name}</Link></li>
+            )
+        })
         return (
             <>
                 <div className="main-nav-container">
@@ -43,7 +50,7 @@ class Nav extends React.Component {
                             {currentUser.email}
                             <i className="fas fa-angle-down dropdown-caret-icon"></i>
                         </button>
-                        <ul className={`account-dropdown dropdown ${this.state.accountDropdown}`}>
+                        <ul className={`account-dropdown dropdown ${accountDropdown}`}>
                             <li><button>Other option</button></li>
                             <li><button>Other option</button></li>
                             <li><button onClick={this.handleLogout}>Sign out {currentUser.email}</button></li>
@@ -70,13 +77,19 @@ class Nav extends React.Component {
                         </li>
                         <li>
                             <div className="nav-link-container">
-                                <button className="caret-dropdown-button">
-                                    <i className="fas fa-caret-right nav-icon"></i>
-                                </button>
+                                <button className="caret-dropdown-button" onClick={() => this.toggleHidden("notebookDropdown")} >
+                                    <i className={`fas fa-caret-right nav-icon 
+                                    ${notebookDropdown === "" ? "open" : ""}`}></i>
+                                </button> 
                                 <Link to="/notebooks" className="nav-link">
                                     <i className="fas fa-book-open nav-icon"></i>
                                     Notebooks
                                 </Link>
+                                <ul className={`nav-notebook-list ${notebookDropdown}`}>
+                                    <div className="notebook-index-notes-list-container">
+                                        {notebookList}
+                                    </div>
+                                </ul>
                             </div>
                         </li>
                         <li>

@@ -3,12 +3,13 @@ import { withRouter } from 'react-router-dom';
 import { logoutUser } from '../../../actions/session_actions';
 import { createNote } from '../../../actions/notes/notes_actions';
 import { fetchNotebooks } from '../../../actions/notebooks/notebook_actions';
+import { getAllNotebooks } from '../../../reducers/selectors';
 import Nav from './nav';
 
 
 const mapStateToProps = state => ({
     currentUser: state.entities.users[state.session.id],
-    notebooks: state.entities.notebooks
+    notebooks: getAllNotebooks(state)
 });
 
 const mapDispatchToProps = dispatch => ({
