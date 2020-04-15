@@ -9,11 +9,11 @@ class NoteList extends React.Component {
 
     render () {
         if (!this.props.notes.length) return null;
-        const { notes, view, notebook } = this.props;
+        const { notes, view, notebook, selectedNote } = this.props;
         notes.sort(function (a, b) {
             return new Date(b.updated_at) - new Date(a.updated_at);
         });
-
+        
         let noteUrl = "";
         if (view === "notebook") {
             noteUrl = `/notebooks/${notebook.id}/`;
@@ -25,10 +25,11 @@ class NoteList extends React.Component {
             if (!note) return null;
             let date = getDateRelative(note.updated_at);
             let body = note.body.slice(0, 100).replace(/<[^>]*>?/gm, '');
+            const selected = (selectedNote == note.id);
             return (
                 <div className="sidebar-note-container" key={note.id}>
                     <Link to={`${noteUrl}${note.id}`}>
-                        <button className="sidebar-note">
+                        <button className={`sidebar-note ${selected ? "selected" : ""}`}>
                             <div className="sidebar-note-grid">
                                 <h4>{note.title}</h4>
                                 <p>{body}</p>

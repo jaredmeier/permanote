@@ -27,7 +27,7 @@ class NotesIndex extends React.Component {
 
     render () {
         if (!this.props.notes) return null;
-
+        const selectedNote = this.props.match.params.noteId;
         return (
         <>
             <div className="sidebar-container">
@@ -36,7 +36,7 @@ class NotesIndex extends React.Component {
                     <h5 className="row-2 col-1">{this.props.notes.length} notes</h5>
                 </div> 
                 <div className="sidebar-scroll">
-                    <NoteList notes={this.props.notes} />
+                    <NoteList notes={this.props.notes} selectedNote={selectedNote} />
                 </div>
             </div>
             <Route exact path="/notes/" component={EditorContainer} />

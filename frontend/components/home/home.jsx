@@ -6,7 +6,7 @@ import Content from './home_content';
 
 
 export default () => (
-    <div>
+    <div className="home-container">
         <Nav />
         <Content />
     </div>

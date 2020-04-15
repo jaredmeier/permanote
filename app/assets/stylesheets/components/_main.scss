@@ -170,6 +170,10 @@
     height: 100%;
 }
 
+.sidebar-note.selected {
+    background-color: $light-gray;
+}
+
 .sidebar-note-grid {
     display: grid;
     grid-template-rows: 40px 50px 40px;

@@ -5,12 +5,12 @@
 
     display: grid;
     grid-template-columns: minmax(30px, 330px);
-    grid-template-rows: 1fr 2fr 2fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr 4fr 2fr 1fr;
     
     align-items: center;
     justify-content: center;
 
-    margin: 10vh auto;
+    margin: auto auto;
     max-width: 512px;
     height: 80vh;
     box-sizing: border-box;

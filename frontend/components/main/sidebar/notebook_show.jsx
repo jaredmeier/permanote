@@ -42,6 +42,7 @@ class NotebookShow extends React.Component {
         if (!notebook) return (
             <div>Loading</div>
         )
+        const selectedNote = this.props.match.params.noteId;
         return (
             <>
                 <div className="sidebar-container">
@@ -50,7 +51,7 @@ class NotebookShow extends React.Component {
                         <h5 className="row-2 col-1">{notes.length} notes</h5>
                     </div>
                     <div className="sidebar-scroll">
-                        <NoteList notes={notes} view="notebook" notebook={notebook}/>
+                        <NoteList notes={notes} view="notebook" notebook={notebook} selectedNote={selectedNote}/>
                     </div>
                 </div>
                 <Route path={["/notebooks/:notebookId/:noteId"]} component={EditorContainer} />
