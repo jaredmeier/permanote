@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactQuill, { Quill } from 'react-quill';
+import { debounce } from "debounce";
 import { getDate } from '../../../util/date_parse_util';
 
 class Editor extends React.Component {
@@ -10,7 +12,18 @@ class Editor extends React.Component {
 
         this.getNote = this.getNote.bind(this);
         this.deleteNote = this.deleteNote.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleEditorChange = this.handleEditorChange.bind(this);   
+        this.setToolbarStatus = this.setToolbarStatus.bind(this);
+        
+        this.saveNote = this.saveNote.bind(this);
+        //return a debounced save function that only saves every x ms after user stops typing
+        this.autosave = debounce(this.saveNote, 2000); 
+
+        this.modules = {
+            toolbar: {
+                container: '#toolbar'
+            }
+        };  
     }
 
     setEmptyState() {
@@ -20,6 +33,7 @@ class Editor extends React.Component {
             body: '',
             updated_at: new Date(),
             ellDropdown: "hidden",
+            showToolbar: false,
             navAndSidebar: ""
         };
     }
@@ -40,9 +54,14 @@ class Editor extends React.Component {
         }
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        this.props.updateNote(this.state);
+    handleEditorChange(text) {
+        this.setState({ body: text});
+        this.autosave();
+    }
+
+    saveNote() {
+        const { id, title, body } = this.state;
+        this.props.updateNote({id, title, body});
     }
 
     getNote() { //sets rendered note to actually selected note, or default note stored in UI state, or empty
@@ -54,19 +73,21 @@ class Editor extends React.Component {
     }
 
     deleteNote() {
-        debugger
         this.props.openModal("deleteNote", this.state.id);
         this.toggleHidden("ellDropdown");
     }
 
-    toggleHidden(dropdown) {
-        this.state[dropdown] === "hidden" ? 
-            this.setState({ [dropdown]: "" }) : this.setState({ [dropdown]: "hidden" });
+    toggleHidden(element) {
+        this.state[element] === "hidden" ? 
+            this.setState({ [element]: "" }) : this.setState({ [element]: "hidden" });
     }
 
+    setToolbarStatus(status) {
+        this.setState({ showToolbar: status});
+    }
 
     render() {
-        const { title, body, updated_at } = this.state;
+        const { title, body, updated_at, showToolbar } = this.state;
         const dateString = getDate(updated_at);
 
         return (
@@ -90,27 +111,31 @@ class Editor extends React.Component {
                             </ul>
                     </div>
                     <div className="col-1 row-2">
-                        <h5>Last edited on {dateString}</h5>
+                        <h5 className={showToolbar ? "hidden" : ""}>Last edited on {dateString}</h5>
                     </div>
+                    <Toolbar showToolbar={showToolbar}/>
                 </div>
-
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="title">
+                <div className="quill-container" id="quill">
+                    
+                    <form>
                         <input name="title" type="text" className="note-title-edit"
-                        onChange={this.updateForm('title')} 
-                        value={title}>
+                            onChange={this.updateForm('title')}
+                            onFocus={() => this.setToolbarStatus(false)}
+                            value={title}>
                         </input>
-                    </label>
-                    <label htmlFor="body">
-                        <textarea name="body" className="note-body-edit"
-                        onChange={this.updateForm('body')} 
-                        value={body}
-                        placeholder="Start writing">
-                        </textarea>
-                    </label>
-                    <button>Save</button>
-                </form>
-
+                    </form>
+                    <ReactQuill
+                        onChange={this.handleEditorChange}
+                        value = {body}
+                        modules={this.modules}
+                        placeholder="Start writing"
+                        onFocus={() => this.setToolbarStatus(true)}
+                        bounds=".editor-container"
+                        scrollingContainer=".quill-container"
+                        >
+                    </ReactQuill>
+                    
+                </div>
                 <div className="editor-footer">Tags go here</div>
             </div>
         )
@@ -118,3 +143,55 @@ class Editor extends React.Component {
 }
 
 export default Editor;
+
+const Toolbar = ({ showToolbar }) => {
+    return (
+        <div className={`row-2 ql-toolbar ql-snow ${showToolbar ? "" : "hidden"}`} id="toolbar">
+            <span className="ql-formats">
+                <select className="ql-header" defaultValue="3">
+                    <option value="1">Heading</option>
+                    <option value="2">Subheading</option>
+                    <option value="3">Normal</option>
+                </select>
+                <select className="ql-font" defaultValue="sailec">
+                    <option value="sailec">Sailec Light</option>
+                    <option value="sofia">Sofia Pro</option>
+                    <option value="slabo">Slabo 27px</option>
+                    <option value="roboto">Roboto Slab</option>
+                    <option value="inconsolata">Inconsolata</option>
+                    <option value="ubuntu">Ubuntu Mono</option>
+                </select>
+            </span>
+            <span className="ql-formats">
+                <select className="ql-color"></select>
+                <select className="ql-background"></select>
+            </span>
+            <span className="ql-formats">
+                <button className="ql-bold"></button>
+                <button className="ql-italic"></button>
+                <button className="ql-underline"></button>
+                <button className="ql-strike"></button>
+            </span>
+            <span className="ql-formats">
+                <button className="ql-list" value="ordered"></button>
+                <button className="ql-list" value="bullet"></button>
+                <select className="ql-align" defaultValue="">
+                    <option label="left" value=""></option>
+                    <option label="center" value="center"></option>
+                    <option label="right" value="right"></option>
+                    <option label="justify" value="justify"></option>
+                </select>
+            </span>
+            <span className="ql-formats">
+                <button className="ql-link"></button>
+            </span>
+            <span className="ql-formats">
+                <button className="ql-formula"></button>
+                <button className="ql-code-block"></button>
+            </span>
+            <span className="ql-formats">
+                <button className="ql-clean"></button>
+            </span>
+        </div>
+    )
+}

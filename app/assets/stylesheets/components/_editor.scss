@@ -1,0 +1,110 @@
+.editor-container {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 100px 1fr 50px;
+}
+
+// HEADER
+.editor-header {
+    align-items: center;
+    padding: 0 25px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+
+    border-bottom: 1px $other-gray solid;
+}
+
+.editor-header > .col-1 {
+    grid-column: 1 / 2;
+}
+
+.editor-header > .col-2 {
+    grid-column: 2 / -1;
+    justify-self: end;
+}
+
+.editor-header > .row-1 {
+    grid-row: 1 / 2;
+}
+
+.editor-header > .row-2 {
+    grid-row: 2 / -1;
+    // overflow: hidden;
+    min-width: 500px;
+}
+
+.expand-button {
+    transform: scaleX(-1);
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    border: 0 transparent;
+    padding: 0;
+    margin-right: 10px;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $gray;
+}
+
+.expand-button:hover {
+    background-color: $light-gray;
+    border: 1px $light-gray solid;
+    border-radius: 3px;
+}
+
+
+// MAIN TEXT FORM
+
+// see quill.snow.css _quill_overrides.scss for editor styling 
+
+.quill-container {
+    padding-left: 40px;
+    padding-top: 60px;
+    padding-right: 40px;
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    overflow-y: auto;
+}
+
+.note-title-edit {
+    border: 0;
+    border-radius: 0;
+    font-size: 2em;
+    height: 40px;
+    width: 100%;
+    color: $black;
+}
+
+.editor-footer {
+    border-top: 1px $other-gray solid;
+    padding: 15px 20px;
+}
+
+#toolbar {
+    grid-column: 1 / -1;
+    border: 0;
+    padding: 0;
+    font-family: $sans-serif, 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+#quill .ql-editor {
+    padding: 0;
+    overflow: visible;
+}
+
+#quill .ql-container {
+    font-size: 15px;
+}
+
+#quill .ql-container.ql-snow {
+    border: 0;
+}
+
+#quill .ql-editor.ql-blank::before {
+    left: 0;
+    right: 0;
+}
+

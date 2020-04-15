@@ -24,7 +24,7 @@ class NoteList extends React.Component {
         const noteList = notes.map(note => {
             if (!note) return null;
             let date = getDateRelative(note.updated_at);
-            let body = note.body.slice(0, 70);
+            let body = note.body.slice(0, 100).replace(/<[^>]*>?/gm, '');
             return (
                 <div className="sidebar-note-container" key={note.id}>
                     <Link to={`${noteUrl}${note.id}`}>

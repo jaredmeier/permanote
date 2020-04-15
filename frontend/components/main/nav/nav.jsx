@@ -60,24 +60,34 @@ class Nav extends React.Component {
 
                     <ul className="main-nav-links">
                         <li>
-                            <Link to="/notes">
-                                <button className="nav-link-button">
-                                    <i className="fas fa-caret-right nav-icon"></i>
+                            <div className="nav-link-container">
+                                <div></div>
+                                <Link to="/notes" className="nav-link">
                                     <i className="fas fa-sticky-note nav-icon"></i>
-                                    All Notes
-                                </button>
-                            </Link>
+                                    <h4>All Notes</h4>
+                                </Link>
+                            </div>
                         </li>
                         <li>
-                            <Link to="/notebooks">
-                                <button className="nav-link-button">
+                            <div className="nav-link-container">
+                                <button className="caret-dropdown-button">
                                     <i className="fas fa-caret-right nav-icon"></i>
+                                </button>
+                                <Link to="/notebooks" className="nav-link">
                                     <i className="fas fa-book-open nav-icon"></i>
                                     Notebooks
-                                </button>
-                            </Link>
+                                </Link>
+                            </div>
                         </li>
-                        <li>Tags</li>
+                        <li>
+                            <div className="nav-link-container">
+                                <div></div>
+                                <Link to="/" className="nav-link">
+                                    <div></div>
+                                    <h4>Tags</h4>
+                                </Link>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </>
