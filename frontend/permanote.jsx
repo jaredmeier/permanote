@@ -6,12 +6,12 @@ import Root from './components/root';
 
 import 'react-quill/dist/quill.snow.css';
 
-
 // IMPORT TESTING FUNCTIONS
 // import { loginUser, createUser, logoutUser } from './actions/session_actions';
 // import { fetchNotes, fetchNote, createNote, updateNote, deleteNote } from './actions/notes/notes_actions';
 // import { getAllNotes } from './reducers/selectors';
-import { fetchNotebooks, fetchNotebook, createNotebook, updateNotebook, deleteNotebook } from './util/notebook_api_util';
+// import { fetchNotebooks, fetchNotebook, createNotebook, updateNotebook, deleteNotebook } from './util/notebook_api_util';
+import { createNoteTag } from './actions/tags/tag_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -29,16 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // TESTING FUNCTIONS
-    // window.loginUser = loginUser;
-    // window.createUser = createUser;
-    // window.logoutUser = logoutUser;
     window.getState = store.getState;
     window.dispatch = store.dispatch;
-    window.fetchNotebooks = fetchNotebooks;
-    window.fetchNotebook = fetchNotebook;
-    window.createNotebook = createNotebook;
-    window.updateNotebook = updateNotebook;
-    window.deleteNotebook = deleteNotebook;
+    window.createNoteTag = createNoteTag;
 
     // END TESTING
 

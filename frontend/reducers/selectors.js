@@ -15,3 +15,9 @@ export const getNotebookNotes = ( { entities: { notebooks, notes} }, notebookId 
 
     return notebookNotes;
 }
+
+export const getTags = ({entities: {tags }}, tagIds) => {
+    return tagIds.map(tagId => {
+        return tags[tagId];
+    })
+}

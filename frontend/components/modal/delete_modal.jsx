@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { deleteNote } from '../../actions/notes/notes_actions';
 import { closeModal } from '../../actions/modal_actions';
+import { withRouter } from 'react-router-dom';
 
 class DeleteModal extends React.Component {
     constructor (props) {
@@ -48,4 +49,4 @@ const mapDispatchToProps = dispatch => ({
     closeModal: () => dispatch(closeModal())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteModal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DeleteModal));

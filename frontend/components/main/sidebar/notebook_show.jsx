@@ -18,6 +18,14 @@ class NotebookShow extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (this.props.match.params.notebookId !== prevProps.match.params.notebookId) {
+            this.props.fetchNotebook(this.props.match.params.notebookId).then((action) => {
+                if (action.notes.length) {
+                    this.props.history.push(`/notebooks/${this.props.match.params.notebookId}/${action.notes[0].id}`);
+                }
+            });
+        }
+
         if (JSON.stringify(this.props.checkNotes) === JSON.stringify(prevProps.checkNotes)) return null; //meant to prevent fetching if the props haven't changed, but this never triggers a fetch when creating a new note
         if (this.props.match.params.noteId && !prevProps.match.params.noteId) {
             this.props.fetchNotebook(this.props.match.params.notebookId);

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 class Nav extends React.Component {
     constructor(props) {
+        // debugger
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
         this.handleNewNote = this.handleNewNote.bind(this);
@@ -13,8 +14,18 @@ class Nav extends React.Component {
     }
 
     componentDidMount() {
-        console.log("Nav fetching notebooks")
+        // console.log("Nav fetching notebooks")
+        if (this.props.match.path === "/notes") {
+            this.setState({
+                notebookDropdown: "hidden"
+            })
+        } else {
+            this.setState({
+                notebookDropdown: ""
+            })
+        }
         this.props.fetchNotebooks();
+        this.props.fetchTags();
     }
 
     handleLogout(e) {
@@ -24,8 +35,14 @@ class Nav extends React.Component {
 
     handleNewNote(e) {
         e.preventDefault;
-        let notebookId = this.props.match.params.notebookId || Object.keys(this.props.notebooks)[0];
-        this.props.createNewNote(notebookId).then((action) => this.props.history.push(`/notebooks/${notebookId}/${action.note.id}`));
+        let notebookId = null;
+        if (this.props.match.params.notebookId) {
+            notebookId = this.props.match.params.notebookId;
+            this.props.createNewNote(notebookId).then((action) => this.props.history.push(`/notebooks/${notebookId}/${action.note.id}`));
+        } else {
+            notebookId = this.props.notebooks[0].id;
+            this.props.createNewNote(notebookId).then((action) => this.props.history.push(`/notes/${action.note.id}`));
+        }
     }
 
     toggleHidden(dropdown) {
@@ -38,7 +55,11 @@ class Nav extends React.Component {
         const { notebookDropdown, accountDropdown } = this.state;
         const notebookList = notebooks.map( notebook => {
             return (
-                <li key={notebook.id}><Link to={`/notebooks/${notebook.id}`}>{notebook.name}</Link></li>
+                <div className="nav-hover-notebook" key={notebook.id}>
+                    <Link to={`/notebooks/${notebook.id}`}>
+                        <li key={notebook.id}>{notebook.name}</li>
+                    </Link>
+                </div>
             )
         })
         return (
@@ -67,36 +88,34 @@ class Nav extends React.Component {
 
                     <ul className="main-nav-links">
                         <li>
-                            <div className="nav-link-container">
+                            <div className="nav-hover-container">
                                 <div></div>
-                                <Link to="/notes" className="nav-link">
+                                <Link to="/notes" className="main-nav-link">
                                     <i className="fas fa-sticky-note nav-icon"></i>
                                     <h4>All Notes</h4>
                                 </Link>
                             </div>
                         </li>
                         <li>
-                            <div className="nav-link-container">
+                            <div className="nav-hover-container">
                                 <button className="caret-dropdown-button" onClick={() => this.toggleHidden("notebookDropdown")} >
                                     <i className={`fas fa-caret-right nav-icon 
                                     ${notebookDropdown === "" ? "open" : ""}`}></i>
                                 </button> 
-                                <Link to="/notebooks" className="nav-link">
+                                <Link to="/notebooks" className="main-nav-link">
                                     <i className="fas fa-book-open nav-icon"></i>
                                     Notebooks
                                 </Link>
-                                <ul className={`nav-notebook-list ${notebookDropdown}`}>
-                                    <div className="notebook-index-notes-list-container">
-                                        {notebookList}
-                                    </div>
-                                </ul>
                             </div>
+                            <ul className={`nav-notebook-list ${notebookDropdown}`}>
+                                {notebookList}
+                            </ul>
                         </li>
                         <li>
-                            <div className="nav-link-container">
+                            <div className="nav-hover-container"> 
                                 <div></div>
-                                <Link to="/" className="nav-link">
-                                    <div></div>
+                                <Link to="/" className="main-nav-link">
+                                    <i className={`fas fa-tag nav-icon`}></i>
                                     <h4>Tags</h4>
                                 </Link>
                             </div>

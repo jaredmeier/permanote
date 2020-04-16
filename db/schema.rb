@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_08_143908) do
+ActiveRecord::Schema.define(version: 2020_04_15_155910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "note_tags", force: :cascade do |t|
+    t.integer "note_id", null: false
+    t.integer "tag_id", null: false
+    t.index ["note_id", "tag_id"], name: "index_note_tags_on_note_id_and_tag_id", unique: true
+  end
 
   create_table "notebooks", force: :cascade do |t|
     t.string "name", null: false
@@ -32,6 +38,14 @@ ActiveRecord::Schema.define(version: 2020_04_08_143908) do
     t.datetime "updated_at", null: false
     t.index ["notebook_id"], name: "index_notes_on_notebook_id"
     t.index ["title"], name: "index_notes_on_title"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "author_id"], name: "index_tags_on_name_and_author_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

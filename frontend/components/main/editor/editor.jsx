@@ -3,6 +3,8 @@ import ReactQuill, { Quill } from 'react-quill';
 import { debounce } from "debounce";
 import { getDate } from '../../../util/date_parse_util';
 
+import Tags from './tags';
+
 class Editor extends React.Component {
     constructor(props) {
         super(props);
@@ -89,7 +91,6 @@ class Editor extends React.Component {
     render() {
         const { title, body, updated_at, showToolbar } = this.state;
         const dateString = getDate(updated_at);
-
         return (
             <div className="editor-container">
                 <div className="editor-header">
@@ -116,7 +117,6 @@ class Editor extends React.Component {
                     <Toolbar showToolbar={showToolbar}/>
                 </div>
                 <div className="quill-container" id="quill">
-                    
                     <form>
                         <input name="title" type="text" className="note-title-edit"
                             onChange={this.updateForm('title')}
@@ -134,9 +134,10 @@ class Editor extends React.Component {
                         scrollingContainer=".quill-container"
                         >
                     </ReactQuill>
-                    
                 </div>
-                <div className="editor-footer">Tags go here</div>
+                <Tags tags={this.props.tags} note={this.props.note}
+                 createTag={this.props.createTag} createNoteTag={this.props.createNoteTag}
+                 deleteNoteTag={this.props.deleteNoteTag} userId={this.props.userId}/>
             </div>
         )
     }

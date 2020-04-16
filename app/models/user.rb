@@ -26,6 +26,10 @@ class User < ApplicationRecord
         through: :notebooks,
         source: :notes
 
+    has_many :tags,
+        foreign_key: :author_id,
+        class_name: :Tag
+
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)
         return user if user && user.is_password?(password)

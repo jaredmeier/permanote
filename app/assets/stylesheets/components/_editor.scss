@@ -78,10 +78,6 @@
     color: $black;
 }
 
-.editor-footer {
-    border-top: 1px $other-gray solid;
-    padding: 15px 20px;
-}
 
 #toolbar {
     grid-column: 1 / -1;
@@ -108,3 +104,58 @@
     right: 0;
 }
 
+
+//
+// TAGS
+//
+
+.editor-tags {
+    border-top: 1px $other-gray solid;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.editor-tags-list {
+    list-style: none;
+    display: flex;
+}
+
+.editor-tag-button {
+    display: flex;
+    align-items: center;
+    background-color: $light-gray;
+    border: 1px solid $light-gray;
+    border-radius: 20px;
+    padding: 5px;
+    width: auto;
+    height: 90%;
+    color: $gray;
+    font-size: 0.9em;
+    margin-left: 4px;
+}
+
+.editor-tag-button:hover {
+    background-color: $light-gray;
+    cursor: default;
+}
+
+.tag-actions-button, .tag-actions-button:hover {
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    color: $gray;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+}
+
+.tag-input {
+    border: 0;
+    font-size: 0.9em;
+    width: 300px;
+    height: 40px;
+    margin-left: 4px;
+}

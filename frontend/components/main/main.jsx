@@ -9,9 +9,12 @@ import Modal from '../modal/modal';
 
 export default () => (
     <div className="main-container">
-        <Modal />
         <Switch>
-            <Route path="/notebooks/:notebookId?" component={NavContainer} />
+            <Route path="/notebooks/:notebookId" component={Modal} />
+            <Route component={Modal} />
+        </Switch>
+        <Switch>
+            <Route path="/notebooks/:notebookId" component={NavContainer} />
             <Route component={NavContainer} />
         </Switch> 
         <Route exact path="/notebooks" component={NotebookIndex} />
@@ -22,3 +25,4 @@ export default () => (
 );
 
 //render EditorContainer for both paths so it has access to :noteId params if specified
+//

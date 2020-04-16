@@ -9,6 +9,8 @@
 User.destroy_all
 Notebook.destroy_all
 Note.destroy_all
+Tag.destroy_all
+NoteTag.destroy_all
 
 sample_text_1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
@@ -26,3 +28,7 @@ demo_note_2 = Note.create!(title: "Two is Company", body: sample_text_2, noteboo
 demo_notebook_2 = Notebook.create!(name: "My Other Notebook", author_id: demo_user.id);
 demo_note_3 = Note.create!(title: "This is a note", body: sample_text_3, notebook_id: demo_notebook_2.id)
 demo_note_4 = Note.create!(title: "This is also a note", body: sample_text_4, notebook_id: demo_notebook_2.id)
+
+demo_tag_1 = Tag.create!(name: "Kinda important", author_id: demo_user.id)
+
+demo_note_tag_1 = NoteTag.create!(note_id: demo_note_1.id, tag_id: demo_tag_1.id)

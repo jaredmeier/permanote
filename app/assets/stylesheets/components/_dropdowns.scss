@@ -121,3 +121,17 @@ $dropdown-blur: 2px;
 .actions-dropdown > li {
     line-height: initial;
 }
+
+
+// tag actions dropdown
+
+.tag-dropdown {
+    width: 200px;
+    left: 5px;
+    bottom: 35px;
+}
+
+.tag-dropdown button {
+    width: 100%;
+}
+
