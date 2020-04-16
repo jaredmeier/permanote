@@ -5,10 +5,13 @@ class Tags extends React.Component {
         super(props);
         this.state = {
             tagName: "",
-            tagActionsDropdown: {}
+            tagActionsDropdown: {},
+            tagSearchDropdown: false,
+            tagSearchMatches: []
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.removeNoteTag = this.removeNoteTag.bind(this);
+        this.updateTagField = this.updateTagField.bind(this);
     }
 
     handleSubmit(e) {
@@ -23,15 +26,52 @@ class Tags extends React.Component {
         this.setState({ tagName: ""});
     }
 
+    handleSubmitFromDropdown(tag_id) {
+        const note_id = this.props.note.id;
+        this.props.createNoteTag({ note_id, tag_id });
+        this.setState({ tagName: "", tagSearchDropdown: false });
+    }
+
     removeNoteTag(tag_id) {
         const note_id = this.props.note.id;
         this.props.deleteNoteTag({note_id, tag_id});
     }
 
-    updateField(field) {
-        return (e) => {
-            this.setState({ [field]: e.target.value });
+    updateTagField(e) {
+        this.setState({ tagName: e.target.value }, () => {
+            if (this.state.tagName.length >= 1) {
+                this.searchTags(this.state.tagName)
+            }
+            else {
+                this.setState({ tagSearchDropdown: false });
+            }
+        });
+    }
+
+    searchTags(tagSearch) {
+        const tags = this.props.allTags.filter(tag => {
+            return tag.name.toLowerCase().indexOf(tagSearch.toLowerCase()) !== -1;
+        });
+        if (tags.length > 0) {
+            this.setState( {tagSearchDropdown: true});
+        } else {
+            this.setState({ tagSearchDropdown: false });
         }
+        this.setState( {tagSearchMatches: tags } );
+        
+    }
+
+    populateSearchResults() {
+        const tagMatches = this.state.tagSearchMatches;
+        return tagMatches.map(tag => {
+            return (
+                <li key={tag.id}>
+                    <button onClick={() => this.handleSubmitFromDropdown(tag.id)}>
+                        {tag.name}
+                    </button>
+                </li>
+            )
+        })
     }
 
     toggleTagDropdown(tagId) {
@@ -78,18 +118,26 @@ class Tags extends React.Component {
             )
         });
 
+        const tagSearchDropdown = this.state.tagSearchDropdown;
+        const tagSearchResults = this.populateSearchResults();
         return (
             <div className="editor-tags">
                 <i className={`fas fa-tag nav-icon`}></i>
                 <ul className="editor-tags-list">
                     {tags}
                 </ul>
+                <div className="dropdown-anchor">
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" className="tag-input"
-                    onChange={this.updateField("tagName")}
-                    value={this.state.tagName}>
+                    onChange={this.updateTagField}
+                    value={this.state.tagName} placeholder="Search tags or enter new tag name">
                     </input>
                 </form>
+                    <ul className={`tag-dropdown dropdown 
+                            ${tagSearchDropdown ? "" : "hidden"}`}>
+                        {tagSearchResults}
+                    </ul>
+                </div>
             </div>
         )
     }

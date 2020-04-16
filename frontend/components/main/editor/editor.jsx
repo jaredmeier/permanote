@@ -135,7 +135,7 @@ class Editor extends React.Component {
                         >
                     </ReactQuill>
                 </div>
-                <Tags tags={this.props.tags} note={this.props.note}
+                <Tags tags={this.props.tags} allTags={this.props.allTags} note={this.props.note}
                  createTag={this.props.createTag} createNoteTag={this.props.createNoteTag}
                  deleteNoteTag={this.props.deleteNoteTag} userId={this.props.userId}/>
             </div>

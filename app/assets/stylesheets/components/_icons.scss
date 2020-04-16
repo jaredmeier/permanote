@@ -6,6 +6,7 @@
     color: $green;
     font-size: 1.6em;
     padding-right: 10px;
+    padding-left: 6px;
     transform: scale(1);
     transition: transform 0.2s linear;
 }
@@ -42,4 +43,14 @@
 
 .fa-book-open {
     padding-right: 10px;
+}
+
+.fa-search {
+    transform: scale(1.2,1.2);
+    padding-right: 10px;
+    padding-left: 5px;
+}
+
+.fa-sticky-note {
+    padding-left: 2px;
 }

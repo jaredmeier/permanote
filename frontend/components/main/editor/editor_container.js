@@ -13,6 +13,7 @@ const mapStateToProps = (state, ownProps) => {
         note: note,
         notebook: notebook,
         tags: tags,
+        allTags: Object.keys(state.entities.tags).map(id => state.entities.tags[id]),
         userId: state.session.id
     }
 };
