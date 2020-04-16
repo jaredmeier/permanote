@@ -25,17 +25,42 @@ class NotesIndex extends React.Component {
         }
     }
 
+    removeTagFilter(tagId) {
+        this.props.removeTagFilter(tagId);
+    }
+
     render () {
         if (!this.props.notes) return null;
         const selectedNote = this.props.match.params.noteId;
+
+        let tagFilterItem = (<div></div>);
+        const tagFilter = this.props.tagFilter;
+        if (tagFilter) tagFilterItem = (
+            <li className="tag-filter-button" key={tagFilter.id}>
+                <div><i className={`fas fa-tag nav-icon`}></i></div>
+                <div>{tagFilter.name}</div>
+                <div>
+                    <button className="tag-filter-close-button"
+                        onClick={() => this.removeTagFilter(tagFilter.id)}>
+                        <i className="fas fa-times"></i>
+                    </button>
+                </div>
+            </li>
+            )
+
         return (
         <>
             <div className="sidebar-container">
                 <div className="sidebar-header">
                     <h3 className="row-1 col-1">{this.props.header}</h3>
-                    <h5 className="row-2 col-1">{this.props.notes.length} notes</h5>
+                    <h5 className="row-2 col-1">{this.props.notes.length} notes</h5>  
                 </div> 
-                <div className="sidebar-scroll">
+                <div className={`sidebar-tag-filters ${tagFilter ? "" : "hidden"}`}>
+                    <ul>
+                        {tagFilterItem}
+                    </ul>
+                </div>
+                <div className={`sidebar-scroll ${tagFilter ? "shifted" : "" }`}>                
                     <NoteList notes={this.props.notes} selectedNote={selectedNote} />
                 </div>
             </div>

@@ -15,7 +15,7 @@
     padding: 15px 0 0;
 
     display: grid;
-    grid-template-rows: 50px 50px 50px 100px 1fr;
+    grid-template-rows: 55px 55px 55px 100px 1fr;
 
     color: $gray;
     background-color: $black;
@@ -73,7 +73,6 @@
 }
 
 .nav-notebook-list li {
-    // align-self: center;
     line-height: 30px;
     padding-left: 50px;
 }
@@ -107,16 +106,32 @@
 .sidebar-container {
     display: grid;
     height: 100vh;
-    grid-template-rows: 100px 1fr;
+    grid-template-rows: 100px minmax(0, 50px) 1fr;
     text-align: left;
     background-color: $lightest-gray;
     border-right: 1px $other-gray solid;
 }
 
+.sidebar-tag-filters {
+    grid-row: 2 / 3;
+    border-bottom: 1px $other-gray solid;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-tag-filters.hidden {
+    grid-row: 4 / -1;
+}
+
 .sidebar-scroll {
+    grid-row: 2 / -1;
     display: grid;
     grid-template-rows: repeat(auto-fit, 120px);
     overflow: auto;
+}
+
+.sidebar-scroll.shifted {
+    grid-row: 3 / -1;
 }
 
 .sidebar-header {
@@ -194,3 +209,50 @@
 }
 
 
+//
+// TAG FILTERS
+//
+
+.tag-filter-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: $blue;
+    border: 1px solid $blue;
+    border-radius: 20px;
+    padding: 5px;
+    width: auto;
+    line-height: 60%;
+    color: $white;
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+.tag-filter-button:hover {
+    background-color: $blue;
+    cursor: default;
+}
+
+.tag-filter-button > div > i {
+    color: $white;
+}
+
+.tag-filter-button div:first-of-type {
+    padding: 0 5px;
+}
+
+.tag-filter-button div:last-of-type {
+    padding-left: 10px;
+}
+
+.tag-filter-close-button, .tag-filter-close-button:hover {
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    color: $light-gray;
+    font-size: 0.7em;
+    display: flex;
+    align-items: center;
+}

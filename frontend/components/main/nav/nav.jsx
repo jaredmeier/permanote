@@ -9,7 +9,8 @@ class Nav extends React.Component {
         this.handleNewNote = this.handleNewNote.bind(this);
         this.state = {
             accountDropdown: "hidden",
-            notebookDropdown: "hidden"
+            notebookDropdown: "hidden",
+            tagDropdown: "hidden"
         };
     }
 
@@ -51,8 +52,8 @@ class Nav extends React.Component {
     }
 
     render() {
-        const { currentUser, notebooks } = this.props;
-        const { notebookDropdown, accountDropdown } = this.state;
+        const { currentUser, notebooks, tags } = this.props;
+        const { notebookDropdown, accountDropdown, tagDropdown } = this.state;
         const notebookList = notebooks.map( notebook => {
             return (
                 <div className="nav-hover-notebook" key={notebook.id}>
@@ -61,7 +62,16 @@ class Nav extends React.Component {
                     </Link>
                 </div>
             )
-        })
+        });
+        const tagList = tags.map(tag => {
+            return (
+                <div className="nav-hover-notebook" key={tag.id}>
+                    <button>
+                        <li key={tag.id}>{tag.name}</li>
+                    </button>
+                </div>
+            )
+        });
         return (
             <>
                 <div className="main-nav-container">
@@ -79,7 +89,7 @@ class Nav extends React.Component {
                     </div>
                     <div className="nav-search">
                         <i className="fas fa-search nav-icon"></i>
-                        Search
+                        Don't Search
                     </div>
                     <button className="nav-new-note" onClick={this.handleNewNote}>
                         <i className="fas fa-plus-circle add-note-icon"></i>
@@ -128,3 +138,6 @@ class Nav extends React.Component {
 }
 
 export default Nav;
+
+//tombstone account icon
+//<img src={window.iconURL} className="account-icon" />

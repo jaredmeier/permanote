@@ -30,11 +30,11 @@ class SessionForm extends React.Component {
     render() {        
         // debugger
         return (
-            <>
+            <div className="page-container">
                 <div className="session-form-container">
                     <div className="heading">
                         <img src={window.logoURL} className="session-form-logo" />
-                        <div className="logo-byline">Remember everything. EVERYTHING.</div>
+                        <div className="logo-byline">Your notes will be here. Even when you no longer are. </div>
                     </div>
                     <form onSubmit={this.handleSubmit} type="" className="session-form">
                         <input 
@@ -58,7 +58,7 @@ class SessionForm extends React.Component {
                     <br />
                     <FormLink formType={this.props.formType}/>
                 </div>
-            </>
+            </div>
         )
     }
 }

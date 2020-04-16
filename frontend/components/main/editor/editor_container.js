@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchNote, updateNote, deleteNote } from '../../../actions/notes/notes_actions';
 import { createTag, deleteNoteTag, createNoteTag } from '../../../actions/tags/tag_actions';
+import { receiveTagFilter } from '../../../actions/tags/tag_filter_actions';
 import { openModal } from '../../../actions/modal_actions';
 import { getTags } from '../../../reducers/selectors';
 import Editor from './editor';
@@ -23,7 +24,8 @@ const mapDispatchToProps = dispatch => ({
     createTag: (tag) => dispatch(createTag(tag)),
     createNoteTag: (noteTag) => dispatch(createNoteTag(noteTag)),
     deleteNoteTag: (noteTag) => dispatch(deleteNoteTag(noteTag)),
-    openModal: (modal, actionId) => dispatch(openModal(modal, actionId))
+    openModal: (modal, actionId) => dispatch(openModal(modal, actionId)),
+    receiveTagFilter: (tagId) => dispatch(receiveTagFilter(tagId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

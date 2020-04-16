@@ -4,13 +4,14 @@ import { logoutUser } from '../../../actions/session_actions';
 import { createNote } from '../../../actions/notes/notes_actions';
 import { fetchNotebooks } from '../../../actions/notebooks/notebook_actions';
 import { fetchTags } from '../../../actions/tags/tag_actions';
-import { getAllNotebooks } from '../../../reducers/selectors';
+import { getAllNotebooks, getAllTags } from '../../../reducers/selectors';
 import Nav from './nav';
 
 
 const mapStateToProps = state => ({
     currentUser: state.entities.users[state.session.id],
-    notebooks: getAllNotebooks(state)
+    notebooks: getAllNotebooks(state),
+    tags: getAllTags(state)
 });
 
 const mapDispatchToProps = dispatch => ({

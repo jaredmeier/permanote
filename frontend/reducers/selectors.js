@@ -1,5 +1,18 @@
-export const getAllNotes = ( { entities: {notes} } = {} ) => (
+export const getNotes = ( state ) => {
+    const tagFilters= state.ui.tagFilters;
+    if (!tagFilters) {
+        return getAllNotes(state);
+    } else {
+        return getFilteredNotes(state, tagFilters);
+    }
+};
+
+export const getAllNotes = ({ entities: { notes } } = {}) => (
     Object.keys(notes).map(id => notes[id])
+);
+
+export const getFilteredNotes = ({ entities: { notes } } = {}, tagId) => (
+    Object.keys(notes).map(id => notes[id]).filter( note => note.tag_ids.includes(tagId))
 );
 
 export const getAllNotebooks = ( { entities: { notebooks } } = {} ) => (
@@ -21,3 +34,7 @@ export const getTags = ({entities: {tags }}, tagIds) => {
         return tags[tagId];
     })
 }
+
+export const getAllTags = ({ entities: { tags } } ) => (
+    Object.keys(tags).map(id => tags[id])
+)

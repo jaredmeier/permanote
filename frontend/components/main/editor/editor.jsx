@@ -66,7 +66,7 @@ class Editor extends React.Component {
         this.props.updateNote({id, title, body});
     }
 
-    getNote() { //sets rendered note to actually selected note, or default note stored in UI state, or empty
+    getNote() { //sets rendered note to actually selected note, or default empty note
         if (this.props.note) {
             this.setState(this.props.note);
         }  else {
@@ -137,7 +137,8 @@ class Editor extends React.Component {
                 </div>
                 <Tags tags={this.props.tags} allTags={this.props.allTags} note={this.props.note}
                  createTag={this.props.createTag} createNoteTag={this.props.createNoteTag}
-                 deleteNoteTag={this.props.deleteNoteTag} userId={this.props.userId}/>
+                 deleteNoteTag={this.props.deleteNoteTag} userId={this.props.userId}
+                 receiveTagFilter={this.props.receiveTagFilter}/>
             </div>
         )
     }

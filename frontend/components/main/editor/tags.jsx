@@ -97,6 +97,7 @@ class Tags extends React.Component {
                         <ul className={`tag-dropdown dropdown 
                             ${tagActionsDropdown ? "" : "hidden"}`}>
                             <li><button onClick={() => {
+                                this.props.receiveTagFilter(tag.id),
                                 this.toggleTagDropdown(tag.id)
                             }}>Filter by tag</button></li>
                             <li><button onClick={() => {
