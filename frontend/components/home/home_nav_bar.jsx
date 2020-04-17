@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default () => (
     <div className="nav-container">
         <div className="nav-logo-container">
-            <img src={window.logoInlineURL} className="nav-logo" />
+            <img src={window.logoInlineURL} className="home-nav-logo" />
         </div>
         <div className="nav-links">
             <a href="https://github.com/jaredmeier/permanote">GITHUB</a>

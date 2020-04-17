@@ -12,9 +12,15 @@
     align-items: center;
 }
 
-.nav-logo {
+.nav-logo-container {
+    position: relative;
+}
+
+.home-nav-logo {
     width: 100%;
-    height: 100%;
+    position: absolute;
+    right: 25px;
+    top: -50px;
 }
 
 .nav-links {
