@@ -19,7 +19,7 @@ class Editor extends React.Component {
         
         this.saveNote = this.saveNote.bind(this);
         //return a debounced save function that only saves every x ms after user stops typing
-        this.autosave = debounce(this.saveNote, 2000); 
+        this.autosave = debounce(this.saveNote, 1000); 
 
         this.modules = {
             toolbar: {
@@ -36,7 +36,6 @@ class Editor extends React.Component {
             updated_at: new Date(),
             ellDropdown: "hidden",
             showToolbar: false,
-            navAndSidebar: ""
         };
     }
 
@@ -53,6 +52,7 @@ class Editor extends React.Component {
     updateForm(field) {
         return (e) => {
             this.setState({ [field]: e.target.value });
+            this.autosave();
         }
     }
 
@@ -88,14 +88,24 @@ class Editor extends React.Component {
         this.setState({ showToolbar: status});
     }
 
+    toggleEditorExpand() {
+        const { editorExpand } = this.props;
+        if (editorExpand) {
+            this.props.closeEditor();
+        } else {
+            this.props.expandEditor();
+        }
+    }
+
     render() {
         const { title, body, updated_at, showToolbar } = this.state;
         const dateString = getDate(updated_at);
+        const { editorExpand } = this.props;
         return (
-            <div className="editor-container">
+            <div className={`editor-container ${editorExpand ? "expand" : ""}`}>
                 <div className="editor-header">
                     <div className="col-1 row-1">
-                        <button className="expand-button" onClick={() => this.toggleHidden("navAndSidebar")}>
+                        <button className="expand-button" onClick={() => this.toggleEditorExpand()}>
                             <i className="fas fa-expand-alt"></i>
                         </button>
                         <i className="fas fa-book-open nav-icon"></i>
@@ -117,7 +127,7 @@ class Editor extends React.Component {
                     <Toolbar showToolbar={showToolbar}/>
                 </div>
                 <div className="quill-container" id="quill">
-                    <form>
+                    <form onSubmit={(e) => e.preventDefault()}>
                         <input name="title" type="text" className="note-title-edit"
                             onChange={this.updateForm('title')}
                             onFocus={() => this.setToolbarStatus(false)}
@@ -155,14 +165,7 @@ const Toolbar = ({ showToolbar }) => {
                     <option value="2">Subheading</option>
                     <option value="3">Normal</option>
                 </select>
-                <select className="ql-font" defaultValue="sailec">
-                    <option value="sailec">Sailec Light</option>
-                    <option value="sofia">Sofia Pro</option>
-                    <option value="slabo">Slabo 27px</option>
-                    <option value="roboto">Roboto Slab</option>
-                    <option value="inconsolata">Inconsolata</option>
-                    <option value="ubuntu">Ubuntu Mono</option>
-                </select>
+                <select className="ql-font"></select>
             </span>
             <span className="ql-formats">
                 <select className="ql-color"></select>

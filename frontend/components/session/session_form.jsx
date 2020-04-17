@@ -12,6 +12,10 @@ class SessionForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentWillUnmount() {
+        this.props.clearSessionErrors();
+    }
+
     handleSubmit(e) {
         e.preventDefault();
 
@@ -28,12 +32,11 @@ class SessionForm extends React.Component {
     }
 
     render() {        
-        // debugger
         return (
             <div className="page-container">
                 <div className="session-form-container">
                     <div className="heading">
-                        <img src={window.logoURL} className="session-form-logo" />
+                        <Link to="/" ><img src={window.logoURL} className="session-form-logo" /></Link>
                         <div className="logo-byline">Your notes will be here. Even when you no longer are. </div>
                     </div>
                     <form onSubmit={this.handleSubmit} type="" className="session-form">

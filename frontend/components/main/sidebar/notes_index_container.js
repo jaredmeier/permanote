@@ -8,6 +8,7 @@ const mapStateToProps = state => ({
     notes: getNotes(state),
     header: "All Notes",
     tagFilter: state.entities.tags[state.ui.tagFilters],
+    editorExpand: state.ui.editorUI
 });
 
 const mapDispatchToProps = dispatch => ({

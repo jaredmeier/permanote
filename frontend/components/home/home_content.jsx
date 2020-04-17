@@ -8,11 +8,11 @@ export default () => (
                 <h1>Your notes will be here. Even when you no longer are.</h1>
             </div>
             <div className="content-text">
-                <h3>Meeting notes, projects, to-do lists — take any kind of note and rest easy knowing it’s here forever. Some things are temporary. For everything else, there’s Permanote.</h3>
+                <h3>Stay organized and find information faster. Meeting notes, projects, to-do lists — take any kind of note and rest peacefully knowing it’s here forever.</h3>
             </div>
             <div className="content-sign-up">
                 <Link to="/signup">
-                    <button>SIGN UP FOR FREE</button>
+                    <button>SIGN UP</button>
                 </Link>
             </div>
             <div className="hero-image-container">

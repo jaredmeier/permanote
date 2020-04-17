@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 class Nav extends React.Component {
     constructor(props) {
-        // debugger
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
         this.handleNewNote = this.handleNewNote.bind(this);
@@ -15,7 +14,6 @@ class Nav extends React.Component {
     }
 
     componentDidMount() {
-        // console.log("Nav fetching notebooks")
         if (this.props.match.path === "/notes") {
             this.setState({
                 notebookDropdown: "hidden"
@@ -55,8 +53,9 @@ class Nav extends React.Component {
         const { currentUser, notebooks, tags } = this.props;
         const { notebookDropdown, accountDropdown, tagDropdown } = this.state;
         const notebookList = notebooks.map( notebook => {
+            const currentNotebook = (notebook.id == this.props.match.params.notebookId);
             return (
-                <div className="nav-hover-notebook" key={notebook.id}>
+                <div className={`nav-hover-notebook ${currentNotebook ? "selected" : ""}`} key={notebook.id}>
                     <Link to={`/notebooks/${notebook.id}`}>
                         <li key={notebook.id}>{notebook.name}</li>
                     </Link>
@@ -64,17 +63,19 @@ class Nav extends React.Component {
             )
         });
         const tagList = tags.map(tag => {
+            const currentTag = (tag.id === this.props.tagFilter);
             return (
-                <div className="nav-hover-notebook" key={tag.id}>
-                    <button>
+                <div className={`nav-hover-tag ${currentTag ? "selected" : ""}`} key={tag.id}>
+                    <button onClick={() => this.props.receiveTagFilter(tag.id)}>
                         <li key={tag.id}>{tag.name}</li>
                     </button>
                 </div>
             )
         });
+        const { editorExpand } = this.props;
         return (
             <>
-                <div className="main-nav-container">
+                <div className={`main-nav-container ${editorExpand ? "collapse" : ""}`}>
                     <div className="nav-profile">
                         <button className="account-dropdown-button" onClick={() => this.toggleHidden("accountDropdown")}>
                             <i className="fas fa-user-circle account-icon" ></i> 
@@ -123,14 +124,24 @@ class Nav extends React.Component {
                         </li>
                         <li>
                             <div className="nav-hover-container"> 
-                                <div></div>
+                                <button className="caret-dropdown-button" onClick={() => this.toggleHidden("tagDropdown")} >
+                                    <i className={`fas fa-caret-right nav-icon 
+                                    ${tagDropdown === "" ? "open" : ""}`}></i>
+                                </button> 
                                 <Link to="/" className="main-nav-link">
                                     <i className={`fas fa-tag nav-icon`}></i>
                                     <h4>Tags</h4>
                                 </Link>
                             </div>
+                            <ul className={`nav-tag-list ${tagDropdown}`}>
+                                {tagList}
+                            </ul>
                         </li>
                     </ul>
+                    <div className="nav-footer">
+                        <div></div>
+                        <img src={window.logoInlineURL} className="nav-logo" />
+                    </div>
                 </div>
             </>
         )
@@ -141,3 +152,8 @@ export default Nav;
 
 //tombstone account icon
 //<img src={window.iconURL} className="account-icon" />
+//<div></div>
+//logo at bottom of nav
+/* <div>
+    <img src={window.logoInlineURL} className="nav-logo" />
+</div> */

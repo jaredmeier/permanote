@@ -44,6 +44,10 @@ class NotebookShow extends React.Component {
         //noteid may disappear (ie go to /notebooks) if deleting a note
     }
 
+    removeTagFilter(tagId) {
+        this.props.removeTagFilter(tagId);
+    }
+
 
     render() {
         const { notes, notebook } = this.props;
@@ -51,14 +55,35 @@ class NotebookShow extends React.Component {
             <div>Loading</div>
         )
         const selectedNote = this.props.match.params.noteId;
+
+        let tagFilterItem = (<div></div>);
+        const tagFilter = this.props.tagFilter;
+        if (tagFilter) tagFilterItem = (
+            <li className="tag-filter-button" key={tagFilter.id}>
+                <div><i className={`fas fa-tag nav-icon`}></i></div>
+                <div>{tagFilter.name}</div>
+                <div>
+                    <button className="tag-filter-close-button"
+                        onClick={() => this.removeTagFilter(tagFilter.id)}>
+                        <i className="fas fa-times"></i>
+                    </button>
+                </div>
+            </li>
+        )
+        const { editorExpand } = this.props;
         return (
             <>
-                <div className="sidebar-container">
+                <div className={`sidebar-container ${editorExpand ? "collapse" : ""}`}>
                     <div className="sidebar-header">
                         <h3 className="row-1">{notebook.name}</h3>
                         <h5 className="row-2 col-1">{notes.length} notes</h5>
                     </div>
-                    <div className="sidebar-scroll">
+                    <div className={`sidebar-tag-filters ${tagFilter ? "" : "hidden"}`}>
+                        <ul>
+                            {tagFilterItem}
+                        </ul>
+                    </div>
+                    <div className={`sidebar-scroll ${tagFilter ? "shifted" : ""}`}>
                         <NoteList notes={notes} view="notebook" notebook={notebook} selectedNote={selectedNote}/>
                     </div>
                 </div>

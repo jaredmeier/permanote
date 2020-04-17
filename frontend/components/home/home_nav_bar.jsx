@@ -7,7 +7,7 @@ export default () => (
             <img src={window.logoInlineURL} className="nav-logo" />
         </div>
         <div className="nav-links">
-            <Link to="/">CONTACT</Link>
+            <a href="https://github.com/jaredmeier/permanote">GITHUB</a>
         </div>
         <div className="nav-signup">
             <Link to="/signup">Sign up</Link>

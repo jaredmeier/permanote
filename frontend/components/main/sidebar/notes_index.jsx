@@ -28,7 +28,7 @@ class NotesIndex extends React.Component {
     removeTagFilter(tagId) {
         this.props.removeTagFilter(tagId);
     }
-
+    
     render () {
         if (!this.props.notes) return null;
         const selectedNote = this.props.match.params.noteId;
@@ -48,9 +48,11 @@ class NotesIndex extends React.Component {
             </li>
             )
 
+        const { editorExpand } = this.props;
+
         return (
         <>
-            <div className="sidebar-container">
+            <div className={`sidebar-container ${editorExpand ? "collapse" : ""}`}>
                 <div className="sidebar-header">
                     <h3 className="row-1 col-1">{this.props.header}</h3>
                     <h5 className="row-2 col-1">{this.props.notes.length} notes</h5>  

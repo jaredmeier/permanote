@@ -4,6 +4,7 @@ import { createTag, deleteNoteTag, createNoteTag } from '../../../actions/tags/t
 import { receiveTagFilter } from '../../../actions/tags/tag_filter_actions';
 import { openModal } from '../../../actions/modal_actions';
 import { getTags } from '../../../reducers/selectors';
+import { expandEditor, closeEditor } from '../../../actions/editor_ui_actions';
 import Editor from './editor';
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,7 +16,8 @@ const mapStateToProps = (state, ownProps) => {
         notebook: notebook,
         tags: tags,
         allTags: Object.keys(state.entities.tags).map(id => state.entities.tags[id]),
-        userId: state.session.id
+        userId: state.session.id,
+        editorExpand: state.ui.editorUI
     }
 };
 
@@ -25,7 +27,9 @@ const mapDispatchToProps = dispatch => ({
     createNoteTag: (noteTag) => dispatch(createNoteTag(noteTag)),
     deleteNoteTag: (noteTag) => dispatch(deleteNoteTag(noteTag)),
     openModal: (modal, actionId) => dispatch(openModal(modal, actionId)),
-    receiveTagFilter: (tagId) => dispatch(receiveTagFilter(tagId))
+    receiveTagFilter: (tagId) => dispatch(receiveTagFilter(tagId)),
+    expandEditor: () => dispatch(expandEditor()),
+    closeEditor: () => dispatch(closeEditor())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

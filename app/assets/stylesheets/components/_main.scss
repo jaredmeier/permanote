@@ -6,16 +6,20 @@
     font-family: $sans-serif;
 }
 
+.main-nav-container.collapse {
+    display: none;
+}
+
 
 // NAV
 //
 // 
 
 .main-nav-container {
-    padding: 15px 0 0;
+    padding-top: 15px;
 
     display: grid;
-    grid-template-rows: 55px 55px 55px 100px 1fr;
+    grid-template-rows: 55px 55px 55px 1fr 100px;
 
     color: $gray;
     background-color: $black;
@@ -42,7 +46,7 @@
 }
 
 .nav-new-note:hover .add-note-icon {
-    transform: scale(1.2);
+    transform: scale(1.4);
     transition: transform 0.1s linear;
 }
 
@@ -93,9 +97,43 @@
     color: $light-gray;
 }
 
-.nav-hover-container:hover, .nav-hover-notebook:hover {
+.nav-hover-container:hover, .nav-hover-notebook:hover, .nav-hover-tag:hover {
     border: 0;
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+.main-nav-links .selected {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-tag-list {
+    grid-column: 2 / -1;
+    list-style: none;
+    font-size: 0.8em;
+    color: $light-gray;
+}
+
+.nav-tag-list li {
+    line-height: 30px;
+    padding-left: 50px;
+}
+
+.nav-tag-list a, .nav-tag-list a:hover {
+    color: $light-gray;
+}
+
+.nav-tag-list button {
+    padding: 0;
+    color: $light-gray;
+    background-color: transparent;
+    border: 0;
+    width: 100%;
+    text-align: left;
+}
+
+.nav-footer {
+    display: grid;
+    grid-template-rows: 1fr 100px;
 }
 
 
@@ -110,6 +148,10 @@
     text-align: left;
     background-color: $lightest-gray;
     border-right: 1px $other-gray solid;
+}
+
+.sidebar-container.collapse {
+    display: none;
 }
 
 .sidebar-tag-filters {
@@ -239,6 +281,11 @@
 
 .tag-filter-button div:first-of-type {
     padding: 0 5px;
+}
+
+.tag-filter-button div:nth-of-type(2) {
+    padding-top: 2px;
+    padding-left: 2px;
 }
 
 .tag-filter-button div:last-of-type {

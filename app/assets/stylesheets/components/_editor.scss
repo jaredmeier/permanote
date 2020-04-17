@@ -4,6 +4,10 @@
     grid-template-rows: 100px 1fr 50px;
 }
 
+.editor-container.expand {
+    grid-column: 1 / -1;
+}
+
 // HEADER
 .editor-header {
     align-items: center;

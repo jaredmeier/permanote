@@ -5,6 +5,7 @@ import { getAllNotebooks, getNotebookNotes } from '../../reducers/selectors';
 import { fetchNotes } from '../../actions/notes/notes_actions';
 import { fetchNotebooks } from '../../actions/notebooks/notebook_actions';
 import { getDate, getDateRelative } from '../../util/date_parse_util';
+import { removeTagFilter } from '../../actions/tags/tag_filter_actions';
 import { openModal } from '../../actions/modal_actions';
 
 class NotebookIndex extends React.Component {
@@ -18,6 +19,7 @@ class NotebookIndex extends React.Component {
     }
 
     componentDidMount () {
+        if (this.props.tagFilter) this.props.removeTagFilter();
         this.props.fetchNotebooks().then(() => this.props.fetchNotes() );
     }
 
@@ -158,15 +160,17 @@ const mapStateToProps = state => {
         notes[notebook.id] = getNotebookNotes(state, notebook.id);
     });
     return {
-    notebooks: notebooks,
-    notes: notes,
+        notebooks: notebooks,
+        notes: notes,
+        tagFilter: state.ui.tagFilters
     }
 };
 
 const mapDispatchToProps = dispatch => ({
     fetchNotes: () => dispatch(fetchNotes()),
     fetchNotebooks: () => dispatch(fetchNotebooks()),
-    openModal: (modal, actionId) => dispatch(openModal(modal, actionId))
+    openModal: (modal, actionId) => dispatch(openModal(modal, actionId)),
+    removeTagFilter: (tagId) => dispatch(removeTagFilter(tagId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotebookIndex);

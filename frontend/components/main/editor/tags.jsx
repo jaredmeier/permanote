@@ -23,7 +23,7 @@ class Tags extends React.Component {
             const tag_id = action.tag.id;
             this.props.createNoteTag({ note_id, tag_id });
         });
-        this.setState({ tagName: ""});
+        this.setState({ tagName: "", tagSearchDropdown: false});
     }
 
     handleSubmitFromDropdown(tag_id) {
