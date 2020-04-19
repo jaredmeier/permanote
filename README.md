@@ -33,7 +33,7 @@ searchTags(tagSearch) {
         return tag.name.toLowerCase().indexOf(tagSearch.toLowerCase()) !== -1;
     });
     tags.length > 0 ? this.setState({tagSearchDropdown: true}) : this.setState({ tagSearchDropdown: false });
-    this.setState( {tagSearchMatches: tags } );
+    this.setState({tagSearchMatches: tags });
 }
 ```
 
