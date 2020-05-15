@@ -117,8 +117,6 @@ class Editor extends React.Component {
                         </button>
                             <ul className={`ell-dropdown dropdown ${this.state.ellDropdown}`}>
                                 <li><button onClick={this.deleteNote}>Delete note</button></li>
-                                <li><button>Other option</button></li>
-                                <li><button>Other option</button></li>
                             </ul>
                     </div>
                     <div className="col-1 row-2">

@@ -83,8 +83,6 @@ class Nav extends React.Component {
                             <i className="fas fa-angle-down dropdown-caret-icon"></i>
                         </button>
                         <ul className={`account-dropdown dropdown ${accountDropdown}`}>
-                            <li><button>Other option</button></li>
-                            <li><button>Other option</button></li>
                             <li><button onClick={this.handleLogout}>Sign out {currentUser.email}</button></li>
                         </ul>
                     </div>
