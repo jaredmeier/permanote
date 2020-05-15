@@ -17,6 +17,7 @@ class User < ApplicationRecord
 
     attr_reader :password
     after_initialize :ensure_session_token
+    after_create :seed_defaults
 
     has_many :notebooks,
         foreign_key: :author_id,
@@ -59,6 +60,13 @@ class User < ApplicationRecord
 
     def ensure_session_token
         self.session_token ||= User.generate_session_token
+    end
+
+    def seed_defaults
+        notebook = self.notebooks.create!({name: 'My First Notebook'})
+        note = notebook.notes.create!({title: 'My First Note', body: ''})
+        tag = self.tags.create!({name: 'Important'})
+        NoteTag.create({ note_id: note.id, tag_id: tag.id})
     end
 
 end

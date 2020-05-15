@@ -107,12 +107,6 @@ class Tags extends React.Component {
                                 Remove tag
                                 </button>
                             </li>
-                            <li><button onClick={() => {
-                                this.toggleTagDropdown(tag.id)
-                            }}>
-                                Remove tag from all notes
-                                </button>
-                            </li>
                         </ul>
                     </div>
                 </li>
