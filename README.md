@@ -1,4 +1,4 @@
-<h1 align="center"><img src="https://github.com/jaredmeier/permanote/blob/master/app/assets/images/evernote-inline.png?raw=true" width="300" height="auto"></h1>
+<h1 align="center"><img src="https://github.com/jaredmeier/permanote/blob/master/app/assets/images/permanote-inline.png?raw=true" width="300" height="auto"></h1>
 
 [Permanote](https://permanote-app.herokuapp.com/) is a note-taking app that features a rich-text editor, autosaving, and organization with notebooks and tags. Permanote is an [Evernote](https://evernote.com/) clone.
 

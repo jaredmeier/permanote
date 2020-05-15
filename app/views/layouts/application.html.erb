@@ -4,15 +4,16 @@
     <title>Permanote</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta property="og:image" content="<%= image_url('evernote-full.png') %>" />
+    <meta property="og:image" content="<%= image_url('permanote-full.png') %>" />
+    <link rel="shortcut icon" type="image/png" href="<%= image_url('permanote-icon.png') %>"/>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <script src="https://kit.fontawesome.com/e93199a89e.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
-      window.logoURL = "<%= image_url('evernote-full.png') %>";
+      window.logoURL = "<%= image_url('permanote-full.png') %>";
     </script>
     <script type="text/javascript">
-      window.logoInlineURL = "<%= image_url('evernote-inline.png') %>";
+      window.logoInlineURL = "<%= image_url('permanote-inline.png') %>";
     </script>
     <script type="text/javascript">
       window.backgroundURL = "<%= image_url('background.png') %>";
