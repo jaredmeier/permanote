@@ -7,7 +7,10 @@ export default () => (
             <img src={window.logoInlineURL} className="home-nav-logo" />
         </div>
         <div className="nav-links">
-            <a href="https://github.com/jaredmeier/permanote">GITHUB</a>
+            
+            <a href="https://github.com/jaredmeier/permanote" target="_blank"><i className="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/jar-m/" target="_blank"><i className="fab fa-linkedin-in"></i></a>
+            <a href="https://angel.co/u/jared-meier" target="_blank"><i className="fab fa-angellist"></i></a>
         </div>
         <div className="nav-signup">
             <Link to="/signup">Sign up</Link>
