@@ -29,12 +29,12 @@ When tagging notes, users can either create a new tag or start typing to search 
 
 ```javascript
 searchTags(tagSearch) {
-    const tags = this.props.allTags.filter(tag => {
-        return tag.name.toLowerCase().indexOf(tagSearch.toLowerCase()) !== -1;
-    });
-    tags.length > 0 ? this.setState({tagSearchDropdown: true}) : this.setState({ tagSearchDropdown: false });
-    this.setState({tagSearchMatches: tags });
-}
+        const tags = this.props.allTags.filter(tag => {
+            return tag.name.toLowerCase().indexOf(tagSearch.toLowerCase()) !== -1;
+        });
+        
+        tags.length ? this.setState({ tagSearchDropdown: true, tagSearchMatches: tags }) : this.setState({ tagSearchDropdown: false });
+    }
 ```
 
 ## In-progress tasks, planned features & known issues
