@@ -87,8 +87,7 @@ class Nav extends React.Component {
                         </ul>
                     </div>
                     <div className="nav-search">
-                        <i className="fas fa-search nav-icon"></i>
-                        Don't Search
+
                     </div>
                     <button className="nav-new-note" onClick={this.handleNewNote}>
                         <i className="fas fa-plus-circle add-note-icon"></i>
