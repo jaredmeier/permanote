@@ -52,13 +52,8 @@ class Tags extends React.Component {
         const tags = this.props.allTags.filter(tag => {
             return tag.name.toLowerCase().indexOf(tagSearch.toLowerCase()) !== -1;
         });
-        if (tags.length > 0) {
-            this.setState( {tagSearchDropdown: true});
-        } else {
-            this.setState({ tagSearchDropdown: false });
-        }
-        this.setState( {tagSearchMatches: tags } );
         
+        tags.length ? this.setState({ tagSearchDropdown: true, tagSearchMatches: tags }) : this.setState({ tagSearchDropdown: false });
     }
 
     populateSearchResults() {
