@@ -19,7 +19,7 @@ Permanote's rich-text editor is built with [ReactQuill](https://github.com/zenoa
 #### Notebooks
 ![](https://user-images.githubusercontent.com/11576738/79582511-d62f5800-8099-11ea-99f0-de8b36e11d4d.gif)
 
-Users can create notebooks to organize notes.
+Users can create notebooks to organize notes. They can also delete and rename notebooks -- the renaming dialog will only allow the user to continue if the name is changed. When selecting a notebook, the most recently updated note is automatically loaded in the editor.
 
 #### Tags
 
