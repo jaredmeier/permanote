@@ -10,7 +10,14 @@ class Editor extends React.Component {
         super(props);
 
         this.setEmptyState = this.setEmptyState.bind(this);
-        this.setEmptyState();
+        this.state = {
+            id: null,
+            title: '',
+            body: '',
+            updated_at: new Date(),
+            ellDropdown: "hidden",
+            showToolbar: false,
+        };
 
         this.getNote = this.getNote.bind(this);
         this.deleteNote = this.deleteNote.bind(this);
@@ -29,14 +36,14 @@ class Editor extends React.Component {
     }
 
     setEmptyState() {
-        this.state = {
-            id: null,
-            title: '',
-            body: '',
-            updated_at: new Date(),
-            ellDropdown: "hidden",
-            showToolbar: false,
-        };
+        // this.state = {
+        //     id: null,
+        //     title: '',
+        //     body: '',
+        //     updated_at: new Date(),
+        //     ellDropdown: "hidden",
+        //     showToolbar: false,
+        // }
     }
 
     componentDidMount() {
@@ -44,7 +51,7 @@ class Editor extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.match.params.noteId != prevProps.match.params.noteId || this.state.id === null) {
+        if (this.props.match.params.noteId !== prevProps.match.params.noteId || this.state.id === null) {
             this.getNote();
         }
     }
@@ -62,15 +69,19 @@ class Editor extends React.Component {
     }
 
     saveNote() {
-        const { id, title, body } = this.state;
-        this.props.updateNote({id, title, body});
+        const { id, title, body, preventAutosave } = this.state;
+        if (!preventAutosave) this.props.updateNote({id, title, body});
     }
 
     getNote() { //sets rendered note to actually selected note, or default empty note
         if (this.props.note) {
+            this.setState({ preventAutosave: true })
+            setTimeout(() => {
+                this.setState({ preventAutosave: false })
+            }, 2000);
             this.setState(this.props.note);
-        }  else {
-            this.setEmptyState();
+        } else {
+            // this.setEmptyState();
         };
     }
 
@@ -134,7 +145,7 @@ class Editor extends React.Component {
                     </form>
                     <ReactQuill
                         onChange={this.handleEditorChange}
-                        value = {body}
+                        value = {body || ''}
                         modules={this.modules}
                         placeholder="Start writing"
                         onFocus={() => this.setToolbarStatus(true)}
@@ -190,7 +201,6 @@ const Toolbar = ({ showToolbar }) => {
             </span>
             <span className="ql-formats">
                 <button className="ql-formula"></button>
-                <button className="ql-code-block"></button>
             </span>
             <span className="ql-formats">
                 <button className="ql-clean"></button>
