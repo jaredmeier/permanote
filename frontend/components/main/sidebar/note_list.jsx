@@ -23,15 +23,16 @@ class NoteList extends React.Component {
 
         const noteList = notes.map(note => {
             if (!note) return null;
-            let date = getDateRelative(note.updated_at);
-            let body = note.body.slice(0, 100).replace(/<[^>]*>?/gm, '');
+            const date = getDateRelative(note.updated_at);
+            const body = note.body.slice(0, 100).replace(/<[^>]*>?/gm, '');
+            const title = note.title === '' ? 'Untitled' : note.title;
             const selected = (selectedNote == note.id);
             return (
                 <div className="sidebar-note-container" key={note.id}>
                     <Link to={`${noteUrl}${note.id}`}>
                         <button className={`sidebar-note ${selected ? "selected" : ""}`}>
                             <div className="sidebar-note-grid">
-                                <h4>{note.title}</h4>
+                                <h4>{title}</h4>
                                 <p>{body}</p>
                                 <div className="sidebar-note-date"><h5>{date}</h5></div>
                             </div>

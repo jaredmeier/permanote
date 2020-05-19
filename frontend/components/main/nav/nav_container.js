@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const noteTemplate = (notebookId) => ({
-    title: 'Untitled',
+    title: '',
     body: '',
     notebook_id: notebookId
 });

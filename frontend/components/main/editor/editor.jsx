@@ -140,7 +140,8 @@ class Editor extends React.Component {
                         <input name="title" type="text" className="note-title-edit"
                             onChange={this.updateForm('title')}
                             onFocus={() => this.setToolbarStatus(false)}
-                            value={title}>
+                            value={title}
+                            placeholder="Untitled">
                         </input>
                     </form>
                     <ReactQuill

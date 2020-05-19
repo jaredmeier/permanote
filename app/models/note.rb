@@ -10,7 +10,7 @@
 #  updated_at  :datetime         not null
 #
 class Note < ApplicationRecord
-    validates :title, :body, null: false
+    validates :body, null: false
 
     belongs_to :notebook,
         foreign_key: :notebook_id,

@@ -11,7 +11,7 @@ import 'react-quill/dist/quill.snow.css';
 // import { fetchNotes, fetchNote, createNote, updateNote, deleteNote } from './actions/notes/notes_actions';
 // import { getAllNotes } from './reducers/selectors';
 // import { fetchNotebooks, fetchNotebook, createNotebook, updateNotebook, deleteNotebook } from './util/notebook_api_util';
-import { createNoteTag } from './actions/tags/tag_actions';
+// import { createNoteTag } from './actions/tags/tag_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
     let store;
@@ -29,10 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // TESTING FUNCTIONS
-    window.getState = store.getState;
-    window.dispatch = store.dispatch;
-    window.createNoteTag = createNoteTag;
-
+    // window.getState = store.getState;
+    // window.dispatch = store.dispatch;
+    // window.createNoteTag = createNoteTag;
     // END TESTING
 
     const root = document.getElementById('root');
