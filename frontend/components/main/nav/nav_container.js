@@ -4,7 +4,8 @@ import { logoutUser } from '../../../actions/session_actions';
 import { createNote } from '../../../actions/notes/notes_actions';
 import { fetchNotebooks } from '../../../actions/notebooks/notebook_actions';
 import { fetchTags } from '../../../actions/tags/tag_actions';
-import { receiveTagFilter } from '../../../actions/tags/tag_filter_actions';
+import { receiveTagFilter, removeTagFilter } from '../../../actions/tags/tag_filter_actions';
+import { receiveSearch, clearSearch } from '../../../actions/search_actions';
 import { getAllNotebooks, getAllTags, getAllNotes } from '../../../reducers/selectors';
 import Nav from './nav';
 
@@ -24,6 +25,9 @@ const mapDispatchToProps = dispatch => ({
     fetchNotebooks: () => dispatch(fetchNotebooks()),
     fetchTags: () => dispatch(fetchTags()),
     receiveTagFilter: (tagId) => dispatch(receiveTagFilter(tagId)),
+    removeTagFilter: () => dispatch(removeTagFilter()),
+    receiveSearch: (search) => dispatch(receiveSearch(search)),
+    clearSearch: () => dispatch(clearSearch())
 });
 
 const noteTemplate = (notebookId) => ({

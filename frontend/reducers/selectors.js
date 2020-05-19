@@ -1,10 +1,20 @@
 export const getNotes = ( state ) => {
-    const tagFilters= state.ui.tagFilters;
-    if (!tagFilters) {
+    const tagFilters = state.ui.tagFilters;
+    const search = state.ui.search;
+    if (!tagFilters && !search) {
         return getAllNotes(state);
-    } else {
+    } else if (tagFilters) {
         return getFilteredNotes(state, tagFilters);
+    } else {
+        return getSearchNotes(state, search);
     }
+};
+
+const getSearchNotes = ({ entities: { notes } } = {}, search) => {
+    const notesArray = Object.keys(notes).map(id => notes[id]);
+    return notesArray.filter(note => {
+        return note.body.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    });
 };
 
 export const getAllNotes = ({ entities: { notes } } = {}) => (

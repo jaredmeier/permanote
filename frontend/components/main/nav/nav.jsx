@@ -16,6 +16,8 @@ class Nav extends React.Component {
         this.handleLogout = this.handleLogout.bind(this);
         this.handleNewNote = this.handleNewNote.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+        this.clearSearch = this.clearSearch.bind(this);
     }
 
     componentDidMount() {
@@ -40,6 +42,7 @@ class Nav extends React.Component {
     handleNewNote(e) {
         e.preventDefault;
         let notebookId = null;
+        this.clearSearch();
         if (this.props.match.params.notebookId) {
             notebookId = this.props.match.params.notebookId;
             this.props.createNewNote(notebookId).then((action) => this.props.history.push(`/notebooks/${notebookId}/${action.note.id}`));
@@ -47,6 +50,11 @@ class Nav extends React.Component {
             notebookId = this.props.notebooks[0].id;
             this.props.createNewNote(notebookId).then((action) => this.props.history.push(`/notes/${action.note.id}`));
         }
+    }
+
+    toggleHidden(dropdown) {
+        this.state[dropdown] === "hidden" ?
+            this.setState({ [dropdown]: "" }) : this.setState({ [dropdown]: "hidden" });
     }
 
     handleSearchChange(e) {
@@ -73,16 +81,20 @@ class Nav extends React.Component {
         } 
     }
 
-    handleSearchSubmit(e) {
-        e.preventDefault();
-        // dispatch clear Tag filter
-        // dispatch search text
-        // redirect to all notes
+    clearSearch() {
+        this.setState({ search: '', searchNoteMatches: [], searchNotebookMatches: [] });
+        this.props.clearSearch();
     }
 
-    toggleHidden(dropdown) {
-        this.state[dropdown] === "hidden" ?
-            this.setState({ [dropdown]: "" }) : this.setState({ [dropdown]: "hidden" });
+    handleSearchSubmit(e) {
+        e.preventDefault();
+        const { search } = this.state;
+        if (search.length) {
+            this.props.receiveSearch(search);
+            this.props.removeTagFilter();
+            this.setState({ searchNoteMatches: [], searchNotebookMatches: [] })
+            this.props.history.push(`/notes/`);
+        }
     }
 
     populateSearchResults() {
@@ -92,8 +104,8 @@ class Nav extends React.Component {
             return (
                 <li key={note.id}>
                     <button onClick={() => {
+                                        this.clearSearch();
                                         this.props.history.push(`/notes/${note.id}`);
-                                        this.setState({ searchNoteMatches: [], searchNotebookMatches: [] })
                                         }
                                     }>
                         <i className="fas fa-sticky-note"></i>
@@ -107,8 +119,8 @@ class Nav extends React.Component {
             return (
                 <li key={notebook.id}>
                     <button onClick={() => {
+                                        this.clearSearch();
                                         this.props.history.push(`/notebooks/${notebook.id}`);
-                                        this.setState({ searchNoteMatches: [], searchNotebookMatches: [] })  
                                         }
                                     }>
                         <i className="fas fa-book-open"></i>
@@ -120,7 +132,6 @@ class Nav extends React.Component {
         
         return (
             <>
-            
                 {noteList}
                 {notebookList}
             </>
@@ -135,7 +146,7 @@ class Nav extends React.Component {
             const currentNotebook = (notebook.id == this.props.match.params.notebookId);
             return (
                 <div className={`nav-hover-notebook ${currentNotebook ? "selected" : ""}`} key={notebook.id}>
-                    <Link to={`/notebooks/${notebook.id}`}>
+                    <Link to={`/notebooks/${notebook.id}`} onClick={this.clearSearch}>
                         <li key={notebook.id}>{notebook.name}</li>
                     </Link>
                 </div>
@@ -174,16 +185,19 @@ class Nav extends React.Component {
                     <div className="nav-search">
                         <div className="nav-search-bar dropdown-anchor">
                             <i className="fas fa-search nav-icon"></i>
-                            <form onSubmit={this.handleSearchSubmit}>
+                            <form id="search-form" onSubmit={this.handleSearchSubmit}>
                                 <input
                                     value={search}
                                     onChange={this.handleSearchChange}
                                     placeholder="Search">
                                 </input>
                             </form>
+                            <button onClick={this.clearSearch} className={`clear-search-button ${search.length ? "" : "hidden"}`}>
+                                <i className="fas fa-times clear-search-icon"></i>
+                            </button>
                             <ul className={`search-dropdown dropdown ${showSearch ? "" : "hidden"}`}>
                                 <li>
-                                    <button onClick={this.handleSearchSubmit}>
+                                    <button type="submit" form="search-form">
                                     Search all notes
                                     </button>
                                 </li>
@@ -201,7 +215,7 @@ class Nav extends React.Component {
                         <li>
                             <div className="nav-hover-container">
                                 <div></div>
-                                <Link to="/notes" className="main-nav-link">
+                                <Link to="/notes" className="main-nav-link" onClick={this.clearSearch}>
                                     <i className="fas fa-sticky-note nav-icon"></i>
                                     <h4>All Notes</h4>
                                 </Link>
@@ -213,7 +227,7 @@ class Nav extends React.Component {
                                     <i className={`fas fa-caret-right nav-icon 
                                     ${notebookDropdown === "" ? "open" : ""}`}></i>
                                 </button> 
-                                <Link to="/notebooks" className="main-nav-link">
+                                <Link to="/notebooks" className="main-nav-link" onClick={this.clearSearch}>
                                     <i className="fas fa-book-open nav-icon"></i>
                                     Notebooks
                                 </Link>
@@ -228,7 +242,7 @@ class Nav extends React.Component {
                                     <i className={`fas fa-caret-right nav-icon 
                                     ${tagDropdown === "" ? "open" : ""}`}></i>
                                 </button> 
-                                <Link to="/" className="main-nav-link">
+                                <Link to="#" className="main-nav-link">
                                     <i className={`fas fa-tag nav-icon`}></i>
                                     <h4>Tags</h4>
                                 </Link>
@@ -249,11 +263,3 @@ class Nav extends React.Component {
 }
 
 export default Nav;
-
-//tombstone account icon
-//<img src={window.iconURL} className="account-icon" />
-//<div></div>
-//logo at bottom of nav
-/* <div>
-    <img src={window.logoInlineURL} className="nav-logo" />
-</div> */

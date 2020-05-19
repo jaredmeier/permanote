@@ -131,7 +131,7 @@ $dropdown-blur: 2px;
     bottom: 35px;
 }
 
-.tag-dropdown, .search-dropdown button {
+.tag-dropdown button, .search-dropdown button {
     width: 100%;
 }
 
@@ -140,7 +140,7 @@ $dropdown-blur: 2px;
 }
 
 .search-dropdown {
-    width: 225px;
+    width: 205px;
     left: 0;
     top: 35px;
     font-size: 0.8em;

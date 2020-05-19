@@ -10,18 +10,20 @@ class NotesIndex extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.match.params.noteId || !this.props.notes.length ) {
+        if (this.props.search && !this.props.notes.length) {
+            return;
+        } else if (!this.props.search && (!this.props.match.params.noteId || !this.props.notes.length)) {
             this.props.fetchNotes().then((action) =>
                 this.props.history.push(`/notes/${action.notes[0].id}`)
             );
+        } else if (this.props.notes.length && !this.props.match.params.noteId) {
+            this.props.history.push(`/notes/${this.props.notes[0].id}`);
         }
     }
 
-    compnentDidUpdate(prevProps) {
-        if (this.props.match.params.noteId != prevProps.match.params.noteId) {
-            this.props.fetchNotes().then((action) =>
-                this.props.history.push(`/notes/${action.notes[0].id}`)
-            );
+    componentDidUpdate(prevProps) {
+        if (prevProps.search && !this.props.search) {
+            this.props.history.push(`/notes/${this.props.notes[0].id}`);
         }
     }
 
@@ -50,12 +52,28 @@ class NotesIndex extends React.Component {
 
         const { editorExpand } = this.props;
 
+        let header;
+        if (!this.props.search) {
+            header = (
+                <h3 className="row-1">{this.props.header}</h3>
+            )
+        } else {
+            header = (
+                <h3 className="row-1">
+                    <i className="fas fa-search"></i>
+                    {this.props.header}
+                </h3>
+            )
+        }
+        const noteCount = this.props.notes.length;
+        const noteCountText = noteCount ? `${noteCount} notes` : `No notes found`
+
         return (
         <>
             <div className={`sidebar-container ${editorExpand ? "collapse" : ""}`}>
                 <div className="sidebar-header">
-                    <h3 className="row-1 col-1">{this.props.header}</h3>
-                    <h5 className="row-2 col-1">{this.props.notes.length} notes</h5>  
+                    {header}
+                    <h5 className="row-2 col-1">{noteCountText}</h5>  
                 </div> 
                 <div className={`sidebar-tag-filters ${tagFilter ? "" : "hidden"}`}>
                     <ul>
@@ -66,7 +84,6 @@ class NotesIndex extends React.Component {
                     <NoteList notes={this.props.notes} selectedNote={selectedNote} />
                 </div>
             </div>
-            <Route exact path="/notes/" component={EditorContainer} />
             <Route path={["/notes/:noteId"]} component={EditorContainer} />
         </>
         )
