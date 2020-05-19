@@ -33,6 +33,30 @@
     position: relative;
 }
 
+.nav-search-bar {
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    padding: 3px 0 3px 5px;
+    margin-right: 15px;
+    margin-left: -5px;
+}
+
+.nav-search-bar input {
+    border: 0;
+    color: $white;
+}
+
+.nav-search-bar input::placeholder {
+    color: $light-gray;
+}
+
+.nav-search-bar > i {
+    color: $light-gray;
+}
+
 .nav-new-note {
     padding: 0 0 0 15px;
     background-color: transparent;

@@ -4,13 +4,18 @@ import { Link } from 'react-router-dom';
 class Nav extends React.Component {
     constructor(props) {
         super(props);
-        this.handleLogout = this.handleLogout.bind(this);
-        this.handleNewNote = this.handleNewNote.bind(this);
         this.state = {
             accountDropdown: "hidden",
             notebookDropdown: "hidden",
-            tagDropdown: "hidden"
+            tagDropdown: "hidden",
+            search: "",
+            searchNoteMatches: [],
+            searchNotebookMatches: []
         };
+
+        this.handleLogout = this.handleLogout.bind(this);
+        this.handleNewNote = this.handleNewNote.bind(this);
+        this.handleSearchChange = this.handleSearchChange.bind(this);
     }
 
     componentDidMount() {
@@ -44,14 +49,88 @@ class Nav extends React.Component {
         }
     }
 
+    handleSearchChange(e) {
+        this.setState({ search: e.target.value }, () => {
+            if (this.state.search.length >= 1) {
+                this.searchAll(this.state.search)
+            } else {
+                this.setState({ searchNoteMatches: [], searchNotebookMatches: [] });
+            }
+        });
+    }
+
+    searchAll(search) {
+        const notes = this.props.notes.filter(note => {
+            return note.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+        });
+
+        const notebooks = this.props.notebooks.filter(notebook => {
+            return notebook.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+        });
+
+        if (notes.length || notebooks.length) {
+            this.setState({ searchNoteMatches: notes, searchNotebookMatches: notebooks })  
+        } 
+    }
+
+    handleSearchSubmit(e) {
+        e.preventDefault();
+        // dispatch clear Tag filter
+        // dispatch search text
+        // redirect to all notes
+    }
+
     toggleHidden(dropdown) {
         this.state[dropdown] === "hidden" ?
             this.setState({ [dropdown]: "" }) : this.setState({ [dropdown]: "hidden" });
     }
 
+    populateSearchResults() {
+        const { searchNoteMatches, searchNotebookMatches } = this.state;
+
+        const noteList = searchNoteMatches.map(note => {
+            return (
+                <li key={note.id}>
+                    <button onClick={() => {
+                                        this.props.history.push(`/notes/${note.id}`);
+                                        this.setState({ searchNoteMatches: [], searchNotebookMatches: [] })
+                                        }
+                                    }>
+                        <i className="fas fa-sticky-note"></i>
+                        {note.title}
+                    </button>
+                </li>
+            )
+        })
+
+        const notebookList = searchNotebookMatches.map(notebook => {
+            return (
+                <li key={notebook.id}>
+                    <button onClick={() => {
+                                        this.props.history.push(`/notebooks/${notebook.id}`);
+                                        this.setState({ searchNoteMatches: [], searchNotebookMatches: [] })  
+                                        }
+                                    }>
+                        <i className="fas fa-book-open"></i>
+                        {notebook.name}
+                    </button>
+                </li>
+            )
+        })
+        
+        return (
+            <>
+            
+                {noteList}
+                {notebookList}
+            </>
+        )
+    }
+
     render() {
         const { currentUser, notebooks, tags } = this.props;
         const { notebookDropdown, accountDropdown, tagDropdown } = this.state;
+
         const notebookList = notebooks.map( notebook => {
             const currentNotebook = (notebook.id == this.props.match.params.notebookId);
             return (
@@ -62,6 +141,7 @@ class Nav extends React.Component {
                 </div>
             )
         });
+
         const tagList = tags.map(tag => {
             const currentTag = (tag.id === this.props.tagFilter);
             return (
@@ -72,7 +152,12 @@ class Nav extends React.Component {
                 </div>
             )
         });
+
         const { editorExpand } = this.props;
+        const { search, searchNoteMatches, searchNotebookMatches } = this.state;
+        const showSearch = searchNoteMatches.length || searchNotebookMatches.length;
+        const searchResults = this.populateSearchResults();
+
         return (
             <>
                 <div className={`main-nav-container ${editorExpand ? "collapse" : ""}`}>
@@ -87,7 +172,25 @@ class Nav extends React.Component {
                         </ul>
                     </div>
                     <div className="nav-search">
-
+                        <div className="nav-search-bar dropdown-anchor">
+                            <i className="fas fa-search nav-icon"></i>
+                            <form onSubmit={this.handleSearchSubmit}>
+                                <input
+                                    value={search}
+                                    onChange={this.handleSearchChange}
+                                    placeholder="Search">
+                                </input>
+                            </form>
+                            <ul className={`search-dropdown dropdown ${showSearch ? "" : "hidden"}`}>
+                                <li>
+                                    <button onClick={this.handleSearchSubmit}>
+                                    Search all notes
+                                    </button>
+                                </li>
+                                <li>Go to...</li>
+                                    {searchResults}
+                            </ul>
+                        </div>
                     </div>
                     <button className="nav-new-note" onClick={this.handleNewNote}>
                         <i className="fas fa-plus-circle add-note-icon"></i>

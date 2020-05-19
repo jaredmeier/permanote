@@ -131,7 +131,33 @@ $dropdown-blur: 2px;
     bottom: 35px;
 }
 
-.tag-dropdown button {
+.tag-dropdown, .search-dropdown button {
     width: 100%;
 }
+
+.search-dropdown button {
+    padding: 0 5px 0 5px;
+}
+
+.search-dropdown {
+    width: 225px;
+    left: 0;
+    top: 35px;
+    font-size: 0.8em;
+    color: $black;
+    padding: 10px 0 20px 0px;
+}
+
+.search-dropdown > li:nth-of-type(2) {
+    border-top: 1px solid $gray;
+    margin-top: 10px;
+    padding: 5px 0 5px 7px;
+}
+
+.search-dropdown i {
+    color: $gray;
+    padding-right: 8px;
+}
+
+
 

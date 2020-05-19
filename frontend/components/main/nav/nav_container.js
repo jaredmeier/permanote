@@ -5,7 +5,7 @@ import { createNote } from '../../../actions/notes/notes_actions';
 import { fetchNotebooks } from '../../../actions/notebooks/notebook_actions';
 import { fetchTags } from '../../../actions/tags/tag_actions';
 import { receiveTagFilter } from '../../../actions/tags/tag_filter_actions';
-import { getAllNotebooks, getAllTags } from '../../../reducers/selectors';
+import { getAllNotebooks, getAllTags, getAllNotes } from '../../../reducers/selectors';
 import Nav from './nav';
 
 
@@ -14,7 +14,8 @@ const mapStateToProps = state => ({
     notebooks: getAllNotebooks(state),
     tagFilter: state.ui.tagFilters,
     tags: getAllTags(state),
-    editorExpand: state.ui.editorUI
+    editorExpand: state.ui.editorUI,
+    notes: getAllNotes(state)
 });
 
 const mapDispatchToProps = dispatch => ({
