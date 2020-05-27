@@ -19,7 +19,7 @@
     padding-top: 15px;
 
     display: grid;
-    grid-template-rows: 55px 55px 55px 1fr 100px;
+    grid-template-rows: 55px 55px 55px 1fr 130px;
 
     color: $gray;
     background-color: $black;
@@ -175,6 +175,24 @@
 .nav-footer {
     display: grid;
     grid-template-rows: 1fr 100px;
+}
+
+.nav-social-links {
+    display: flex;
+    width: 80%;
+    justify-self: center;
+    justify-content: space-evenly;
+}
+
+.nav-social-links a {
+    color: rgba(255, 255, 255, 0.2);
+    padding: 0 10px;
+    font-size: 1.2em;
+}
+
+.nav-logo {
+    height: 100px;
+    width: 100%;
 }
 
 

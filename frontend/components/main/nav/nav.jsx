@@ -253,7 +253,11 @@ class Nav extends React.Component {
                         </li>
                     </ul>
                     <div className="nav-footer">
-                        <div></div>
+                        <div className="nav-social-links">
+                            <a href="https://github.com/jaredmeier/permanote" target="_blank"><i className="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/jar-m/" target="_blank"><i className="fab fa-linkedin-in"></i></a>
+                            <a href="https://angel.co/u/jared-meier" target="_blank"><i className="fab fa-angellist"></i></a>
+                        </div>
                         <img src={window.logoInlineURL} className="nav-logo" />
                     </div>
                 </div>
