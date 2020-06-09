@@ -1,6 +1,6 @@
 <h1 align="center"><img src="https://github.com/jaredmeier/permanote/blob/master/app/assets/images/permanote-inline.png?raw=true" width="300" height="auto"></h1>
 
-[Permanote](https://permanote-app.herokuapp.com/) is a note-taking app that features a rich-text editor, autosaving, and organization with notebooks and tags. Permanote is an [Evernote](https://evernote.com/) clone.
+[Permanote](https://permanote-app.herokuapp.com/) is a note-taking app that features a rich-text editor, search, autosaving, and organization with notebooks and tags. Permanote is an [Evernote](https://evernote.com/) clone.
 
 [Try Permanote](https://permanote-app.herokuapp.com/)
 
@@ -20,6 +20,12 @@ Permanote's rich-text editor is built with [ReactQuill](https://github.com/zenoa
 ![](https://user-images.githubusercontent.com/11576738/79582511-d62f5800-8099-11ea-99f0-de8b36e11d4d.gif)
 
 Users can create notebooks to organize notes. They can also delete and rename notebooks -- the renaming dialog will only allow the user to continue if the name is changed. When selecting a notebook, the most recently updated note is automatically loaded in the editor.
+
+#### Search
+![](https://user-images.githubusercontent.com/11576738/84102174-b18e9700-a9dd-11ea-89a6-0d987923ed85.gif)
+
+Users can search all notes and notebooks using the search bar. When the user begins to type, live results showing matching note titles and notebook names appear in a dropdown. The user can then click "Search all notes" to search the content of all the notes and display matching results in the sidebar.
+
 
 #### Tags
 
