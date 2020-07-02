@@ -4,7 +4,12 @@
     <title>Permanote</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta property="og:image" content="<%= image_url('permanote-full.png') %>" />
+
+    <meta property="og:title" content="Permanote">
+    <meta property="og:description" content="Your notes will be here, even when you no longer are.">
+    <meta property="og:image" content="<%= image_url('permanote-full-social.png') %>" />
+    <meta property="og:url" content="https://permanote-app.herokuapp.com/">
+
     <link rel="shortcut icon" type="image/png" href="<%= image_url('permanote-icon.png') %>"/>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
