@@ -9,6 +9,7 @@ class Nav extends React.Component {
             notebookDropdown: "hidden",
             tagDropdown: "hidden",
             search: "",
+            showSearch: false,
             searchNoteMatches: [],
             searchNotebookMatches: []
         };
@@ -17,6 +18,7 @@ class Nav extends React.Component {
         this.handleNewNote = this.handleNewNote.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+        this.toggleSearch = this.toggleSearch.bind(this);
         this.clearSearch = this.clearSearch.bind(this);
     }
 
@@ -78,12 +80,19 @@ class Nav extends React.Component {
 
         if (notes.length || notebooks.length) {
             this.setState({ searchNoteMatches: notes, searchNotebookMatches: notebooks })  
-        } 
+        } else {
+            this.setState({ searchNoteMatches: [], searchNotebookMatches: [] });
+        }
+        // debugger
     }
 
     clearSearch() {
         this.setState({ search: '', searchNoteMatches: [], searchNotebookMatches: [] });
         this.props.clearSearch();
+    }
+
+    toggleSearch() {
+        this.setState({ showSearch: !this.state.showSearch });
     }
 
     handleSearchSubmit(e) {
@@ -98,18 +107,26 @@ class Nav extends React.Component {
     }
 
     populateSearchResults() {
-        const { searchNoteMatches, searchNotebookMatches } = this.state;
+        const { search, searchNoteMatches, searchNotebookMatches } = this.state;
+
+        if (!searchNoteMatches.length && !searchNotebookMatches.length) {
+            return (
+              <li style={{ margin: '0 10px 0 28px' }}>
+                No matching titles found in notes or notebooks
+              </li>
+            );
+        }
 
         const noteList = searchNoteMatches.map(note => {
             return (
                 <li key={note.id}>
-                    <button onClick={() => {
+                    <button onMouseDown={() => {
                                         this.clearSearch();
                                         this.props.history.push(`/notes/${note.id}`);
                                         }
                                     }>
                         <i className="fas fa-sticky-note"></i>
-                        {note.title}
+                        {this.highlightText(note.title, search)}
                     </button>
                 </li>
             )
@@ -118,13 +135,13 @@ class Nav extends React.Component {
         const notebookList = searchNotebookMatches.map(notebook => {
             return (
                 <li key={notebook.id}>
-                    <button onClick={() => {
+                    <button onMouseDown={() => {
                                         this.clearSearch();
                                         this.props.history.push(`/notebooks/${notebook.id}`);
                                         }
                                     }>
                         <i className="fas fa-book-open"></i>
-                        {notebook.name}
+                        {this.highlightText(notebook.name, search)}
                     </button>
                 </li>
             )
@@ -136,6 +153,16 @@ class Nav extends React.Component {
                 {notebookList}
             </>
         )
+    }
+
+    highlightText(str, text) {
+        const regex = new RegExp(`(${text})`, "gi");
+
+        const strParts = str.split(regex);
+
+        return strParts.map((part, i) =>
+          regex.test(part) ? <u key={i}>{part}</u> : <span key={i}>{part}</span>
+        );
     }
 
     render() {
@@ -165,8 +192,7 @@ class Nav extends React.Component {
         });
 
         const { editorExpand } = this.props;
-        const { search, searchNoteMatches, searchNotebookMatches } = this.state;
-        const showSearch = searchNoteMatches.length || searchNotebookMatches.length;
+        const { search, showSearch } = this.state;
         const searchResults = this.populateSearchResults();
 
         return (
@@ -189,21 +215,25 @@ class Nav extends React.Component {
                                 <input
                                     value={search}
                                     onChange={this.handleSearchChange}
+                                    onFocus={this.toggleSearch}
+                                    onBlur={this.toggleSearch}
                                     placeholder="Search">
                                 </input>
                             </form>
                             <button onClick={this.clearSearch} className={`clear-search-button ${search.length ? "" : "hidden"}`}>
                                 <i className="fas fa-times clear-search-icon"></i>
                             </button>
-                            <ul className={`search-dropdown dropdown ${showSearch ? "" : "hidden"}`}>
-                                <li>
-                                    <button type="submit" form="search-form">
-                                    Search all notes
-                                    </button>
-                                </li>
-                                <li>Go to...</li>
-                                    {searchResults}
-                            </ul>
+                            {search && 
+                                <ul className={`search-dropdown dropdown ${showSearch ? "" : "hidden"}`}>
+                                    <li>
+                                        <button type="submit" form="search-form" onMouseDown={this.handleSearchSubmit}>
+                                        Search all notes
+                                        </button>
+                                    </li>
+                                    <li>Go to...</li>
+                                        {searchResults}
+                                </ul>
+                            }
                         </div>
                     </div>
                     <button className="nav-new-note" onClick={this.handleNewNote}>
