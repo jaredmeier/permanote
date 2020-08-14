@@ -49,9 +49,13 @@
 
 .content-sign-up button {
     background-color: white;
-    color: $green;
+    color: $dark-green;
     border: 2px solid $white;
     border-radius: 3px;
     font-style: bold;
-    font-size: 1.4em;;
+    font-size: 1.4em;
+
+    &:hover {
+        color: $green;
+    }
 }

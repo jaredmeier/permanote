@@ -97,6 +97,9 @@ class Nav extends React.Component {
 
     handleSearchSubmit(e) {
         e.preventDefault();
+        const searchInput = document.querySelector('.nav-search-bar > form > input');
+        searchInput.blur();
+        
         const { search } = this.state;
         if (search.length) {
             this.props.receiveSearch(search);
@@ -226,7 +229,7 @@ class Nav extends React.Component {
                             {search && 
                                 <ul className={`search-dropdown dropdown ${showSearch ? "" : "hidden"}`}>
                                     <li>
-                                        <button type="submit" form="search-form" onMouseDown={this.handleSearchSubmit}>
+                                        <button onMouseDown={this.handleSearchSubmit}>
                                         Search all notes
                                         </button>
                                     </li>
