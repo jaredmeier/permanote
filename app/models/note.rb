@@ -12,6 +12,8 @@
 class Note < ApplicationRecord
     validates :body, null: false
 
+    after_save :update_notebook
+
     belongs_to :notebook,
         foreign_key: :notebook_id,
         class_name: :Notebook
@@ -22,4 +24,10 @@ class Note < ApplicationRecord
 
     has_many :tags,
         through: :note_tags
+
+    private
+        def update_notebook
+            notebook = Notebook.find_by(id: notebook_id)
+            notebook.touch
+        end
 end
