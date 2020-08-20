@@ -275,10 +275,10 @@ class Nav extends React.Component {
                                     <i className={`fas fa-caret-right nav-icon 
                                     ${tagDropdown === "" ? "open" : ""}`}></i>
                                 </button> 
-                                <Link to="#" className="main-nav-link">
+                                <button onClick={() => this.toggleHidden("tagDropdown")} className="main-nav-link tag-btn">
                                     <i className={`fas fa-tag nav-icon`}></i>
                                     <h4>Tags</h4>
-                                </Link>
+                                </button>
                             </div>
                             <ul className={`nav-tag-list ${tagDropdown}`}>
                                 {tagList}

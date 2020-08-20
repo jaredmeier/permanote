@@ -132,6 +132,18 @@
     display: grid;
     grid-template-columns: 25px 1fr;
     align-items: center;
+
+    &.tag-btn {
+        background: inherit;
+        text-align: inherit;
+        border: inherit;
+        padding: inherit;
+        transition: none;
+    }
+
+    &.tag-btn:hover {
+        background-color: rgba(0,0,0,0);
+    }
 }
 
 .main-nav-link:hover {
